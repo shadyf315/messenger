@@ -1719,8 +1719,12 @@
 
             } catch (error) {
 
+                console.error("Messenger API connection error:", error);
+
+                const message = error?.message || "Неизвестная ошибка сети.";
+
                 throw new Error(
-                    "Не удалось подключиться к серверу."
+                    `Не удалось подключиться к серверу: ${message}`
                 );
             }
 

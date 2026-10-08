@@ -55,7 +55,8 @@
         }
 
         button,
-        input {
+        input,
+        select {
             font: inherit;
         }
 
@@ -732,6 +733,11 @@
             background: rgba(182,255,0,0.055);
         }
 
+        .glass-btn:disabled {
+            opacity: 0.55;
+            cursor: wait;
+        }
+
         .green-btn {
             border-color: rgba(182,255,0,0.2);
             color: var(--green);
@@ -796,6 +802,75 @@
             gap: 6px;
         }
 
+        /* =========================
+           PROFILE EDIT
+        ========================= */
+
+        .profile-edit {
+            margin-top: 24px;
+        }
+
+        .profile-edit-title {
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .profile-edit-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .profile-edit-field {
+            margin-bottom: 15px;
+        }
+
+        .profile-edit-field.full {
+            grid-column: 1 / -1;
+        }
+
+        .profile-edit-field label {
+            display: block;
+            color: #b7bcb5;
+            font-size: 12px;
+            font-weight: 650;
+            margin-bottom: 7px;
+        }
+
+        .profile-select {
+            width: 100%;
+            height: 49px;
+            padding: 0 15px;
+            color: var(--text);
+            background: rgba(0, 0, 0, 0.28);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            outline: none;
+        }
+
+        .profile-select:focus {
+            border-color: var(--border-green);
+            box-shadow: 0 0 0 3px rgba(182, 255, 0, 0.055);
+        }
+
+        .profile-select option {
+            background: #151815;
+            color: white;
+        }
+
+        .profile-save {
+            width: 100%;
+            margin-top: 4px;
+        }
+
+        .profile-hint {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.5;
+            margin-top: 9px;
+        }
+
         .settings-row {
             display: flex;
             align-items: center;
@@ -819,84 +894,6 @@
             color: var(--muted);
             font-size: 12px;
             margin-top: 4px;
-        }
-
-        .profile-edit {
-            margin-top: 24px;
-            padding-top: 22px;
-            border-top: 1px solid var(--border);
-        }
-
-        .profile-edit-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-        }
-
-        .status-select {
-            width: 100%;
-            height: 49px;
-            padding: 0 14px;
-            color: var(--text);
-            background: rgba(0,0,0,0.28);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            outline: none;
-        }
-
-        .status-select:focus {
-            border-color: var(--border-green);
-        }
-
-        .status-select option {
-            background: #161916;
-            color: white;
-        }
-
-        .avatar-picker {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 7px;
-        }
-
-        .avatar-choice {
-            width: 42px;
-            height: 42px;
-            border-radius: 13px;
-            border: 1px solid var(--border);
-            background: rgba(255,255,255,0.035);
-            color: white;
-            font-size: 20px;
-        }
-
-        .avatar-choice.active,
-        .avatar-choice:hover {
-            border-color: rgba(182,255,0,0.35);
-            background: rgba(182,255,0,0.09);
-            box-shadow: 0 0 18px rgba(182,255,0,0.07);
-        }
-
-        .profile-actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 18px;
-        }
-
-        .profile-save-status {
-            color: var(--muted);
-            font-size: 12px;
-        }
-
-        @media (max-width: 650px) {
-            .profile-edit-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .profile-actions {
-                flex-direction: column;
-                align-items: stretch;
-            }
         }
 
         /* =========================
@@ -940,6 +937,7 @@
                 opacity: 0;
                 transform: translateY(8px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -1097,6 +1095,23 @@
             .auth-card {
                 padding: 26px 20px;
             }
+
+            .profile-edit-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-edit-field.full {
+                grid-column: auto;
+            }
+
+            .code-box {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .code-box .glass-btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -1114,13 +1129,16 @@
 
             <div class="brand">
                 <div class="brand-icon">M</div>
+
                 <div>
                     <div class="brand-name">MESSENGER</div>
                     <div class="brand-sub">PRIVATE COMMUNICATION</div>
                 </div>
             </div>
 
-            <h1 class="auth-title" id="authTitle">Добро пожаловать</h1>
+            <h1 class="auth-title" id="authTitle">
+                Добро пожаловать
+            </h1>
 
             <p class="auth-description" id="authDescription">
                 Войди в аккаунт, чтобы продолжить общение.
@@ -1131,7 +1149,10 @@
             <form id="authForm">
 
                 <div class="field">
-                    <label for="authUsername">Имя пользователя</label>
+                    <label for="authUsername">
+                        Имя пользователя
+                    </label>
+
                     <input
                         class="input"
                         id="authUsername"
@@ -1144,7 +1165,10 @@
                 </div>
 
                 <div class="field">
-                    <label for="authPassword">Пароль</label>
+                    <label for="authPassword">
+                        Пароль
+                    </label>
+
                     <input
                         class="input"
                         id="authPassword"
@@ -1156,14 +1180,20 @@
                     >
                 </div>
 
-                <button class="primary-btn" id="authSubmit" type="submit">
+                <button
+                    class="primary-btn"
+                    id="authSubmit"
+                    type="submit"
+                >
                     Войти
                 </button>
 
             </form>
 
             <div class="switch-auth">
-                <span id="switchText">Нет аккаунта?</span>
+                <span id="switchText">
+                    Нет аккаунта?
+                </span>
 
                 <button
                     class="text-btn"
@@ -1184,18 +1214,21 @@
 
     <section class="app" id="app">
 
-        <!-- SIDEBAR -->
-
         <aside class="sidebar">
 
             <div class="sidebar-brand">
-                <div class="sidebar-brand-icon">M</div>
+
+                <div class="sidebar-brand-icon">
+                    M
+                </div>
 
                 <div class="sidebar-brand-name">
                     MESSENGER
                     <span class="online"></span>
                 </div>
+
             </div>
+
 
             <nav class="nav">
 
@@ -1237,6 +1270,7 @@
 
             </nav>
 
+
             <div class="sidebar-bottom">
 
                 <div class="mini-profile">
@@ -1249,6 +1283,7 @@
                     </div>
 
                     <div>
+
                         <div
                             class="mini-name"
                             id="miniUsername"
@@ -1262,6 +1297,7 @@
                         >
                             ------
                         </div>
+
                     </div>
 
                 </div>
@@ -1270,8 +1306,6 @@
 
         </aside>
 
-
-        <!-- MAIN -->
 
         <main class="main">
 
@@ -1302,7 +1336,10 @@
                         class="chat-items"
                         id="chatItems"
                     >
-                        <div class="empty-text" style="padding:20px;">
+                        <div
+                            class="empty-text"
+                            style="padding:20px;"
+                        >
                             Загрузка...
                         </div>
                     </div>
@@ -1310,9 +1347,15 @@
                 </section>
 
 
-                <section class="chat-window" id="chatWindow">
+                <section
+                    class="chat-window"
+                    id="chatWindow"
+                >
 
-                    <div class="empty-chat" id="emptyChat">
+                    <div
+                        class="empty-chat"
+                        id="emptyChat"
+                    >
 
                         <div>
 
@@ -1550,8 +1593,11 @@
                                         Пользователь
                                     </div>
 
-                                    <div class="profile-status">
-                                        ● онлайн
+                                    <div
+                                        class="profile-status"
+                                        id="profileStatus"
+                                    >
+                                        ● в сети
                                     </div>
 
                                 </div>
@@ -1562,6 +1608,7 @@
                             <div class="code-box">
 
                                 <div>
+
                                     <div
                                         style="
                                             color:var(--muted);
@@ -1578,6 +1625,7 @@
                                     >
                                         ------
                                     </div>
+
                                 </div>
 
                                 <button
@@ -1590,45 +1638,104 @@
 
                             </div>
 
-                            <div class="profile-edit">
-                                <div class="section-title">Редактирование профиля</div>
+                        </div>
+
+
+                        <!-- ИЗМЕНЕНИЕ ПРОФИЛЯ -->
+
+                        <div class="glass-card profile-edit">
+
+                            <div class="profile-edit-title">
+                                Изменить профиль
+                            </div>
+
+                            <form id="profileForm">
 
                                 <div class="profile-edit-grid">
-                                    <div class="field">
-                                        <label for="profileUsernameInput">Имя пользователя</label>
-                                        <input class="input" id="profileUsernameInput" type="text" maxlength="24" autocomplete="off" placeholder="Имя пользователя">
+
+                                    <div class="profile-edit-field">
+
+                                        <label for="profileDisplayName">
+                                            Имя профиля
+                                        </label>
+
+                                        <input
+                                            class="input"
+                                            id="profileDisplayName"
+                                            type="text"
+                                            maxlength="32"
+                                            placeholder="Как тебя будут видеть"
+                                            autocomplete="off"
+                                            required
+                                        >
+
                                     </div>
 
-                                    <div class="field">
-                                        <label for="profileStatusSelect">Статус</label>
-                                        <select class="status-select" id="profileStatusSelect">
-                                            <option value="online">🟢 Онлайн</option>
-                                            <option value="away">🟡 Отошёл</option>
-                                            <option value="dnd">🔴 Не беспокоить</option>
-                                            <option value="invisible">⚫ Невидимый</option>
+
+                                    <div class="profile-edit-field">
+
+                                        <label for="profileAvatarInput">
+                                            Аватар
+                                        </label>
+
+                                        <input
+                                            class="input"
+                                            id="profileAvatarInput"
+                                            type="text"
+                                            maxlength="10"
+                                            placeholder="Например: 👾"
+                                            autocomplete="off"
+                                        >
+
+                                    </div>
+
+
+                                    <div class="profile-edit-field full">
+
+                                        <label for="profileStatusMode">
+                                            Статус
+                                        </label>
+
+                                        <select
+                                            class="profile-select"
+                                            id="profileStatusMode"
+                                        >
+                                            <option value="online">
+                                                🟢 В сети
+                                            </option>
+
+                                            <option value="away">
+                                                🟡 Отошёл
+                                            </option>
+
+                                            <option value="dnd">
+                                                🔴 Не беспокоить
+                                            </option>
+
+                                            <option value="invisible">
+                                                ⚫ Невидимка
+                                            </option>
                                         </select>
+
                                     </div>
+
                                 </div>
 
-                                <div class="field" style="margin-top:4px;">
-                                    <label>Аватар</label>
-                                    <div class="avatar-picker" id="avatarPicker">
-                                        <button class="avatar-choice" type="button" data-avatar="M">M</button>
-                                        <button class="avatar-choice" type="button" data-avatar="😎">😎</button>
-                                        <button class="avatar-choice" type="button" data-avatar="👾">👾</button>
-                                        <button class="avatar-choice" type="button" data-avatar="🦊">🦊</button>
-                                        <button class="avatar-choice" type="button" data-avatar="🐸">🐸</button>
-                                        <button class="avatar-choice" type="button" data-avatar="💀">💀</button>
-                                        <button class="avatar-choice" type="button" data-avatar="⚡">⚡</button>
-                                        <button class="avatar-choice" type="button" data-avatar="🌙">🌙</button>
-                                    </div>
+
+                                <button
+                                    class="primary-btn profile-save"
+                                    id="profileSaveBtn"
+                                    type="submit"
+                                >
+                                    Сохранить изменения
+                                </button>
+
+                                <div class="profile-hint">
+                                    Логин и код друга изменить нельзя.
+                                    Они используются для входа и поиска друзей.
                                 </div>
 
-                                <div class="profile-actions">
-                                    <button class="glass-btn green-btn" id="saveProfileBtn" type="button">Сохранить изменения</button>
-                                    <span class="profile-save-status" id="profileSaveStatus"></span>
-                                </div>
-                            </div>
+                            </form>
 
                         </div>
 
@@ -1666,6 +1773,7 @@
                             <div class="settings-row">
 
                                 <div>
+
                                     <div class="settings-label">
                                         Аккаунт
                                     </div>
@@ -1676,6 +1784,7 @@
                                     >
                                         —
                                     </div>
+
                                 </div>
 
                             </div>
@@ -1684,6 +1793,7 @@
                             <div class="settings-row">
 
                                 <div>
+
                                     <div class="settings-label">
                                         Сервер
                                     </div>
@@ -1691,6 +1801,7 @@
                                     <div class="settings-description">
                                         Cloudflare Worker + D1
                                     </div>
+
                                 </div>
 
                                 <div style="color:var(--green);">
@@ -1703,6 +1814,7 @@
                             <div class="settings-row">
 
                                 <div>
+
                                     <div class="settings-label">
                                         Выйти
                                     </div>
@@ -1710,6 +1822,7 @@
                                     <div class="settings-description">
                                         Завершить текущую сессию.
                                     </div>
+
                                 </div>
 
                                 <button
@@ -1742,6 +1855,7 @@
 
 
     <script>
+
         // ======================================================
         // CONFIG
         // ======================================================
@@ -1751,11 +1865,6 @@
 
         const TOKEN_KEY =
             "messenger_session_token";
-
-        const USER_CACHE_KEY =
-            "messenger_cached_user";
-
-        let heartbeatTimer = null;
 
 
         // ======================================================
@@ -1807,6 +1916,22 @@
 
         const authPassword =
             document.getElementById("authPassword");
+
+
+        const profileForm =
+            document.getElementById("profileForm");
+
+        const profileDisplayName =
+            document.getElementById("profileDisplayName");
+
+        const profileAvatarInput =
+            document.getElementById("profileAvatarInput");
+
+        const profileStatusMode =
+            document.getElementById("profileStatusMode");
+
+        const profileSaveBtn =
+            document.getElementById("profileSaveBtn");
 
 
         // ======================================================
@@ -1861,10 +1986,7 @@
                     data?.error ||
                     `Ошибка сервера (${response.status})`;
 
-                const error = new Error(message);
-                error.status = response.status;
-                error.data = data;
-                throw error;
+                throw new Error(message);
             }
 
             return data;
@@ -1949,7 +2071,7 @@
 
         authForm.addEventListener(
             "submit",
-            async (event) => {
+            async event => {
 
                 event.preventDefault();
 
@@ -1960,9 +2082,11 @@
                     authPassword.value;
 
                 if (!username || !password) {
+
                     showAuthError(
                         "Заполни все поля."
                     );
+
                     return;
                 }
 
@@ -1998,11 +2122,6 @@
                     currentUser =
                         data.user;
 
-                    localStorage.setItem(
-                        USER_CACHE_KEY,
-                        JSON.stringify(currentUser)
-                    );
-
                     showApp();
 
                     showToast(
@@ -2032,6 +2151,50 @@
 
 
         // ======================================================
+        // USER HELPERS
+        // ======================================================
+
+        function getUserDisplayName(user) {
+
+            return (
+                user?.display_name ||
+                user?.username ||
+                "Пользователь"
+            );
+        }
+
+
+        function getUserAvatar(user) {
+
+            return (
+                user?.avatar ||
+                getUserDisplayName(user)
+                    .charAt(0)
+                    .toUpperCase()
+            );
+        }
+
+
+        function getStatusText(user) {
+
+            const mode =
+                user?.status_mode || "online";
+
+            const statuses = {
+                online: "● в сети",
+                away: "● отошёл",
+                dnd: "● не беспокоить",
+                invisible: "● невидимка"
+            };
+
+            return (
+                statuses[mode] ||
+                statuses.online
+            );
+        }
+
+
+        // ======================================================
         // SHOW APP
         // ======================================================
 
@@ -2043,10 +2206,8 @@
             app.classList.add("active");
 
             updateUserUI();
-            syncProfileEditor();
 
             loadAll();
-
         }
 
 
@@ -2056,24 +2217,24 @@
                 return;
             }
 
-            const letter =
-                currentUser.avatar ||
-                currentUser.username
-                    .charAt(0)
-                    .toUpperCase();
+            const displayName =
+                getUserDisplayName(currentUser);
+
+            const avatar =
+                getUserAvatar(currentUser);
 
             document.getElementById(
                 "miniAvatar"
-            ).textContent = letter;
+            ).textContent = avatar;
 
             document.getElementById(
                 "profileAvatar"
-            ).textContent = letter;
+            ).textContent = avatar;
 
             document.getElementById(
                 "miniUsername"
             ).textContent =
-                currentUser.username;
+                displayName;
 
             document.getElementById(
                 "miniCode"
@@ -2083,17 +2244,7 @@
             document.getElementById(
                 "profileUsername"
             ).textContent =
-                currentUser.username;
-
-            const profileStatus =
-                document.querySelector(".profile-status");
-
-            if (profileStatus) {
-                profileStatus.textContent =
-                    currentUser.status === "online"
-                        ? "● онлайн"
-                        : "● офлайн";
-            }
+                displayName;
 
             document.getElementById(
                 "profileCode"
@@ -2106,97 +2257,39 @@
                 currentUser.username +
                 " · " +
                 currentUser.friend_code;
-        }
 
-
-        // ======================================================
-        // PROFILE EDIT
-        // ======================================================
-
-        let selectedAvatar = "M";
-
-        function syncProfileEditor() {
-            if (!currentUser) return;
-
-            document.getElementById("profileUsernameInput").value =
-                currentUser.username || "";
-
-            document.getElementById("profileStatusSelect").value =
-                currentUser.status || "online";
-
-            selectedAvatar =
-                currentUser.avatar ||
-                currentUser.username?.charAt(0).toUpperCase() ||
-                "M";
-
-            document.querySelectorAll(".avatar-choice").forEach(button => {
-                button.classList.toggle(
-                    "active",
-                    button.dataset.avatar === selectedAvatar
-                );
-            });
-        }
-
-        document.querySelectorAll(".avatar-choice").forEach(button => {
-            button.addEventListener("click", () => {
-                selectedAvatar = button.dataset.avatar;
-
-                document.querySelectorAll(".avatar-choice").forEach(item => {
-                    item.classList.toggle("active", item === button);
-                });
-            });
-        });
-
-        document.getElementById("saveProfileBtn").addEventListener("click", async () => {
-            if (!currentUser) return;
-
-            const button = document.getElementById("saveProfileBtn");
-            const statusText = document.getElementById("profileSaveStatus");
-            const username = document.getElementById("profileUsernameInput").value.trim();
-            const status = document.getElementById("profileStatusSelect").value;
-
-            if (username.length < 3 || username.length > 24) {
-                showToast("Имя должно содержать от 3 до 24 символов.", "error");
-                return;
-            }
-
-            button.disabled = true;
-            button.textContent = "Сохранение...";
-            statusText.textContent = "";
-
-            try {
-                const data = await api("/api/profile", {
-                    method: "PATCH",
-                    body: JSON.stringify({
-                        username,
-                        status,
-                        avatar: selectedAvatar
-                    })
-                });
-
-                currentUser = data.user;
-
-                localStorage.setItem(
-                    USER_CACHE_KEY,
-                    JSON.stringify(currentUser)
+            const profileStatus =
+                document.querySelector(
+                    "#view-profile .profile-status"
                 );
 
-                updateUserUI();
-                syncProfileEditor();
-                await loadChats();
-                await loadFriends();
+            if (profileStatus) {
 
-                statusText.textContent = "Сохранено";
-                showToast("Профиль обновлён.", "success");
-
-            } catch (error) {
-                showToast(error.message, "error");
-                statusText.textContent = "Не сохранено";
-            } finally {
-                button.disabled = false;
-                button.textContent = "Сохранить изменения";
+                profileStatus.textContent =
+                    getStatusText(currentUser);
             }
-        });
+
+            if (profileDisplayName) {
+
+                profileDisplayName.value =
+                    currentUser.display_name ||
+                    currentUser.username;
+            }
+
+            if (profileAvatarInput) {
+
+                profileAvatarInput.value =
+                    currentUser.avatar || "";
+            }
+
+            if (profileStatusMode) {
+
+                profileStatusMode.value =
+                    currentUser.status_mode ||
+                    "online";
+            }
+        }
+
 
         // ======================================================
         // LOAD ALL
@@ -2253,11 +2346,11 @@
                             );
 
                         if (target) {
+
                             target.classList.add(
                                 "active"
                             );
                         }
-
                     }
                 );
             });
@@ -2284,7 +2377,10 @@
                 document.getElementById(
                     "chatItems"
                 ).innerHTML = `
-                    <div class="empty-text" style="padding:20px;">
+                    <div
+                        class="empty-text"
+                        style="padding:20px;"
+                    >
                         ${escapeHtml(error.message)}
                     </div>
                 `;
@@ -2317,14 +2413,21 @@
             container.innerHTML =
                 chats.map(chat => {
 
-                    const letter =
-                        chat.username
+                    const displayName =
+                        chat.display_name ||
+                        chat.username ||
+                        "Пользователь";
+
+                    const avatar =
+                        chat.avatar ||
+                        displayName
                             .charAt(0)
                             .toUpperCase();
 
                     const active =
                         activeChat &&
-                        activeChat.id === chat.chat_id
+                        Number(activeChat.id) ===
+                        Number(chat.chat_id)
                             ? "active"
                             : "";
 
@@ -2336,13 +2439,13 @@
                         >
 
                             <div class="avatar">
-                                ${escapeHtml(letter)}
+                                ${escapeHtml(avatar)}
                             </div>
 
                             <div class="chat-info">
 
                                 <div class="chat-name">
-                                    ${escapeHtml(chat.username)}
+                                    ${escapeHtml(displayName)}
                                 </div>
 
                                 <div class="chat-last">
@@ -2365,19 +2468,34 @@
 
             const chat =
                 chats.find(
-                    c => c.chat_id === chatId
+                    c =>
+                        Number(c.chat_id) ===
+                        Number(chatId)
                 );
 
             if (!chat) {
                 return;
             }
 
+            const displayName =
+                chat.display_name ||
+                chat.username ||
+                "Пользователь";
+
+            const avatar =
+                chat.avatar ||
+                displayName
+                    .charAt(0)
+                    .toUpperCase();
+
             activeChat = {
                 id: chat.chat_id,
                 userId: chat.user_id,
                 username: chat.username,
-                avatar: chat.avatar,
-                status: chat.status
+                displayName,
+                avatar,
+                status: chat.status,
+                status_mode: chat.status_mode
             };
 
             renderChats();
@@ -2393,19 +2511,17 @@
             document.getElementById(
                 "chatName"
             ).textContent =
-                chat.username;
+                displayName;
 
             document.getElementById(
                 "chatStatus"
             ).textContent =
-                chat.status || "offline";
+                getStatusText(chat);
 
             document.getElementById(
                 "chatAvatar"
             ).textContent =
-                chat.username
-                    .charAt(0)
-                    .toUpperCase();
+                avatar;
 
             document
                 .getElementById("view-chats")
@@ -2501,6 +2617,7 @@
         function startMessagePolling() {
 
             if (messageTimer) {
+
                 clearInterval(
                     messageTimer
                 );
@@ -2658,8 +2775,14 @@
             container.innerHTML =
                 friends.map(friend => {
 
-                    const letter =
-                        friend.username
+                    const displayName =
+                        friend.display_name ||
+                        friend.username ||
+                        "Пользователь";
+
+                    const avatar =
+                        friend.avatar ||
+                        displayName
                             .charAt(0)
                             .toUpperCase();
 
@@ -2667,13 +2790,13 @@
                         <div class="friend-row">
 
                             <div class="avatar">
-                                ${escapeHtml(letter)}
+                                ${escapeHtml(avatar)}
                             </div>
 
                             <div class="friend-main">
 
                                 <div class="friend-name">
-                                    ${escapeHtml(friend.username)}
+                                    ${escapeHtml(displayName)}
                                 </div>
 
                                 <div class="friend-code">
@@ -2722,15 +2845,19 @@
                     );
 
                 if (chat) {
+
                     await openExistingChat(
                         chat.chat_id
                     );
+
                 } else if (data.chat) {
 
                     activeChat = {
                         id: data.chat.id,
                         userId,
                         username: "Пользователь",
+                        displayName: "Пользователь",
+                        avatar: "?",
                         status: "offline"
                     };
 
@@ -2805,8 +2932,14 @@
             container.innerHTML =
                 requests.map(request => {
 
-                    const letter =
-                        request.username
+                    const displayName =
+                        request.display_name ||
+                        request.username ||
+                        "Пользователь";
+
+                    const avatar =
+                        request.avatar ||
+                        displayName
                             .charAt(0)
                             .toUpperCase();
 
@@ -2814,13 +2947,13 @@
                         <div class="friend-row">
 
                             <div class="avatar">
-                                ${escapeHtml(letter)}
+                                ${escapeHtml(avatar)}
                             </div>
 
                             <div class="friend-main">
 
                                 <div class="friend-name">
-                                    ${escapeHtml(request.username)}
+                                    ${escapeHtml(displayName)}
                                 </div>
 
                                 <div class="friend-code">
@@ -2877,6 +3010,7 @@
 
                 await loadRequests();
                 await loadFriends();
+                await loadChats();
 
             } catch (error) {
 
@@ -2938,7 +3072,9 @@
                 event => {
 
                     if (event.key === "Enter") {
+
                         event.preventDefault();
+
                         addFriend();
                     }
                 }
@@ -3005,7 +3141,8 @@
 
                 showToast(
                     "Заявка отправлена " +
-                    user.username + ".",
+                    getUserDisplayName(user) +
+                    ".",
                     "success"
                 );
 
@@ -3020,7 +3157,181 @@
 
 
         // ======================================================
-        // PROFILE
+        // PROFILE EDIT
+        // ======================================================
+
+        profileForm.addEventListener(
+            "submit",
+            async event => {
+
+                event.preventDefault();
+
+                if (!currentUser) {
+                    return;
+                }
+
+                const displayName =
+                    profileDisplayName.value.trim();
+
+                const avatar =
+                    profileAvatarInput.value.trim();
+
+                const statusMode =
+                    profileStatusMode.value;
+
+                if (!displayName) {
+
+                    showToast(
+                        "Введите имя профиля.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+                if (displayName.length > 32) {
+
+                    showToast(
+                        "Имя профиля слишком длинное.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+                const allowedStatuses = [
+                    "online",
+                    "away",
+                    "dnd",
+                    "invisible"
+                ];
+
+                if (
+                    !allowedStatuses.includes(
+                        statusMode
+                    )
+                ) {
+
+                    showToast(
+                        "Недопустимый статус.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+                profileSaveBtn.disabled = true;
+
+                profileSaveBtn.textContent =
+                    "Сохранение...";
+
+                try {
+
+                    const data =
+                        await api(
+                            "/api/profile",
+                            {
+                                method: "POST",
+                                body: JSON.stringify({
+                                    display_name:
+                                        displayName,
+                                    avatar,
+                                    status_mode:
+                                        statusMode
+                                })
+                            }
+                        );
+
+                    currentUser =
+                        data.user;
+
+                    updateUserUI();
+
+                    await loadFriends();
+                    await loadChats();
+                    await loadRequests();
+
+                    if (activeChat) {
+
+                        const updatedChat =
+                            chats.find(
+                                chat =>
+                                    Number(chat.user_id) ===
+                                    Number(activeChat.userId)
+                            );
+
+                        if (updatedChat) {
+
+                            const updatedName =
+                                updatedChat.display_name ||
+                                updatedChat.username ||
+                                "Пользователь";
+
+                            const updatedAvatar =
+                                updatedChat.avatar ||
+                                updatedName
+                                    .charAt(0)
+                                    .toUpperCase();
+
+                            activeChat.username =
+                                updatedChat.username;
+
+                            activeChat.displayName =
+                                updatedName;
+
+                            activeChat.avatar =
+                                updatedAvatar;
+
+                            activeChat.status =
+                                updatedChat.status;
+
+                            activeChat.status_mode =
+                                updatedChat.status_mode;
+
+                            document.getElementById(
+                                "chatName"
+                            ).textContent =
+                                updatedName;
+
+                            document.getElementById(
+                                "chatAvatar"
+                            ).textContent =
+                                updatedAvatar;
+
+                            document.getElementById(
+                                "chatStatus"
+                            ).textContent =
+                                getStatusText(
+                                    updatedChat
+                                );
+                        }
+                    }
+
+                    showToast(
+                        "Профиль сохранён.",
+                        "success"
+                    );
+
+                } catch (error) {
+
+                    showToast(
+                        error.message,
+                        "error"
+                    );
+
+                } finally {
+
+                    profileSaveBtn.disabled = false;
+
+                    profileSaveBtn.textContent =
+                        "Сохранить изменения";
+                }
+            }
+        );
+
+
+        // ======================================================
+        // COPY CODE
         // ======================================================
 
         document
@@ -3073,25 +3384,16 @@
                 TOKEN_KEY
             );
 
-            localStorage.removeItem(
-                USER_CACHE_KEY
-            );
-
             currentUser = null;
             activeChat = null;
 
             if (messageTimer) {
+
                 clearInterval(
                     messageTimer
                 );
-                messageTimer = null;
-            }
 
-            if (heartbeatTimer) {
-                clearInterval(
-                    heartbeatTimer
-                );
-                heartbeatTimer = null;
+                messageTimer = null;
             }
 
             app.classList.remove(
@@ -3129,20 +3431,6 @@
                 return;
             }
 
-            // Сначала восстанавливаем интерфейс из локального кеша.
-            // Поэтому обычное обновление страницы не выбрасывает аккаунт.
-            try {
-                const cached =
-                    localStorage.getItem(USER_CACHE_KEY);
-
-                if (cached) {
-                    currentUser = JSON.parse(cached);
-                    showApp();
-                }
-            } catch {
-                localStorage.removeItem(USER_CACHE_KEY);
-            }
-
             try {
 
                 const data =
@@ -3151,73 +3439,32 @@
                 currentUser =
                     data.user;
 
-                localStorage.setItem(
-                    USER_CACHE_KEY,
-                    JSON.stringify(currentUser)
-                );
-
-                if (!app.classList.contains("active")) {
-                    showApp();
-                } else {
-                    updateUserUI();
-                    syncProfileEditor();
-                }
-
-                startHeartbeat();
+                showApp();
 
             } catch (error) {
 
-                // Только настоящий 401 означает, что сессия закончилась.
-                // Ошибка сети/Cloudflare не должна разлогинивать пользователя.
-                if (error.status === 401) {
-                    localStorage.removeItem(TOKEN_KEY);
-                    localStorage.removeItem(USER_CACHE_KEY);
-                    currentUser = null;
-                    app.classList.remove("active");
-                    authScreen.style.display = "flex";
-                    return;
-                }
+                /*
+                 * Важно:
+                 * при обычной ошибке сети токен не удаляем.
+                 * Поэтому временное отключение Worker
+                 * не выкинет пользователя из аккаунта.
+                 */
 
-                if (currentUser) {
-                    startHeartbeat();
+                if (
+                    error.message &&
+                    (
+                        error.message.includes("401") ||
+                        error.message.toLowerCase().includes("unauthorized") ||
+                        error.message.toLowerCase().includes("invalid token") ||
+                        error.message.toLowerCase().includes("invalid session")
+                    )
+                ) {
+
+                    localStorage.removeItem(
+                        TOKEN_KEY
+                    );
                 }
             }
-        }
-
-
-        function startHeartbeat() {
-
-            if (heartbeatTimer) {
-                clearInterval(heartbeatTimer);
-            }
-
-            heartbeatTimer = setInterval(async () => {
-
-                if (!localStorage.getItem(TOKEN_KEY)) {
-                    return;
-                }
-
-                try {
-                    const data = await api("/api/me");
-
-                    if (data.user) {
-                        currentUser = data.user;
-
-                        localStorage.setItem(
-                            USER_CACHE_KEY,
-                            JSON.stringify(currentUser)
-                        );
-
-                        updateUserUI();
-                        syncProfileEditor();
-                    }
-                } catch (error) {
-                    if (error.status === 401) {
-                        logout();
-                    }
-                }
-
-            }, 60000);
         }
 
 

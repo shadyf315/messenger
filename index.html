@@ -3,23 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MESSENGER — современный приватный мессенджер">
+
+    <meta
+        name="description"
+        content="MESSENGER — современный приватный мессенджер"
+    >
+
     <title>MESSENGER</title>
 
     <style>
         :root {
             --bg: #070807;
             --bg2: #0d0f0d;
+
             --panel: rgba(24, 27, 24, 0.78);
             --panel-strong: rgba(30, 33, 30, 0.92);
+
             --border: rgba(255, 255, 255, 0.09);
             --border-green: rgba(182, 255, 0, 0.28);
+
             --text: #f2f4ef;
             --muted: #8d938b;
+
             --green: #b6ff00;
             --green-soft: rgba(182, 255, 0, 0.12);
+
             --danger: #ff5555;
-            --shadow: 0 20px 70px rgba(0, 0, 0, 0.45);
+
+            --shadow:
+                0 20px 70px rgba(0, 0, 0, 0.45);
+
             --radius: 22px;
         }
 
@@ -46,9 +59,22 @@
                 sans-serif;
 
             background:
-                radial-gradient(circle at 15% 10%, rgba(182, 255, 0, 0.055), transparent 30%),
-                radial-gradient(circle at 90% 80%, rgba(182, 255, 0, 0.035), transparent 28%),
-                linear-gradient(135deg, #050605, #0a0c0a 50%, #050605);
+                radial-gradient(
+                    circle at 15% 10%,
+                    rgba(182, 255, 0, 0.055),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 80%,
+                    rgba(182, 255, 0, 0.035),
+                    transparent 28%
+                ),
+                linear-gradient(
+                    135deg,
+                    #050605,
+                    #0a0c0a 50%,
+                    #050605
+                );
 
             color: var(--text);
             overflow: hidden;
@@ -56,7 +82,8 @@
 
         button,
         input,
-        select {
+        select,
+        textarea {
             font: inherit;
         }
 
@@ -64,14 +91,37 @@
             cursor: pointer;
         }
 
+        button:disabled {
+            cursor: not-allowed;
+            opacity: 0.55;
+        }
+
         ::selection {
             background: rgba(182, 255, 0, 0.25);
             color: white;
         }
 
-        /* =========================
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.09);
+            border-radius: 20px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(182,255,0,0.2);
+        }
+
+        /* =====================================================
            AUTH
-        ========================= */
+        ===================================================== */
 
         .auth-screen {
             width: 100%;
@@ -86,12 +136,23 @@
 
         .auth-glow {
             position: absolute;
-            width: 420px;
-            height: 420px;
+            width: 460px;
+            height: 460px;
             border-radius: 50%;
             background: rgba(182, 255, 0, 0.045);
-            filter: blur(90px);
+            filter: blur(100px);
             pointer-events: none;
+        }
+
+        .auth-glow.one {
+            left: -150px;
+            top: -130px;
+        }
+
+        .auth-glow.two {
+            right: -170px;
+            bottom: -160px;
+            opacity: 0.6;
         }
 
         .auth-card {
@@ -124,7 +185,8 @@
             background: var(--green);
             font-size: 23px;
             font-weight: 900;
-            box-shadow: 0 0 35px rgba(182, 255, 0, 0.16);
+            box-shadow:
+                0 0 35px rgba(182, 255, 0, 0.16);
         }
 
         .brand-name {
@@ -165,7 +227,8 @@
             margin-bottom: 7px;
         }
 
-        .input {
+        .input,
+        .select {
             width: 100%;
             height: 49px;
             padding: 0 15px;
@@ -177,13 +240,24 @@
             transition: 0.2s ease;
         }
 
-        .input:focus {
+        .select {
+            appearance: none;
+        }
+
+        .input:focus,
+        .select:focus {
             border-color: var(--border-green);
-            box-shadow: 0 0 0 3px rgba(182, 255, 0, 0.055);
+            box-shadow:
+                0 0 0 3px rgba(182, 255, 0, 0.055);
         }
 
         .input::placeholder {
             color: #646a63;
+        }
+
+        .select option {
+            background: #151815;
+            color: white;
         }
 
         .primary-btn {
@@ -191,27 +265,28 @@
             height: 50px;
             border: 1px solid rgba(182, 255, 0, 0.35);
             border-radius: 15px;
+
             background:
                 linear-gradient(
                     135deg,
                     rgba(182, 255, 0, 0.94),
                     rgba(160, 230, 0, 0.9)
                 );
+
             color: #070807;
             font-weight: 850;
+
             transition: 0.2s ease;
-            box-shadow: 0 10px 30px rgba(182, 255, 0, 0.08);
+
+            box-shadow:
+                0 10px 30px rgba(182, 255, 0, 0.08);
         }
 
         .primary-btn:hover {
             transform: translateY(-1px);
-            box-shadow: 0 12px 36px rgba(182, 255, 0, 0.15);
-        }
 
-        .primary-btn:disabled {
-            opacity: 0.55;
-            cursor: wait;
-            transform: none;
+            box-shadow:
+                0 12px 36px rgba(182, 255, 0, 0.15);
         }
 
         .switch-auth {
@@ -226,7 +301,6 @@
             background: transparent;
             color: var(--green);
             font-weight: 700;
-            cursor: pointer;
         }
 
         .auth-error {
@@ -234,15 +308,17 @@
             padding: 11px 13px;
             border-radius: 13px;
             margin-bottom: 15px;
+
             color: #ffb2b2;
             background: rgba(255, 70, 70, 0.08);
             border: 1px solid rgba(255, 70, 70, 0.15);
+
             font-size: 13px;
         }
 
-        /* =========================
+        /* =====================================================
            APP
-        ========================= */
+        ===================================================== */
 
         .app {
             width: 100%;
@@ -254,16 +330,26 @@
             display: flex;
         }
 
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
         .sidebar {
             width: 260px;
             height: 100%;
+
             padding: 18px;
+
             border-right: 1px solid var(--border);
+
             background: rgba(8, 9, 8, 0.76);
+
             backdrop-filter: blur(28px);
             -webkit-backdrop-filter: blur(28px);
+
             display: flex;
             flex-direction: column;
+
             flex-shrink: 0;
         }
 
@@ -278,10 +364,13 @@
             width: 39px;
             height: 39px;
             border-radius: 12px;
+
             display: grid;
             place-items: center;
+
             background: var(--green);
             color: #070807;
+
             font-weight: 950;
         }
 
@@ -294,11 +383,15 @@
         .online {
             width: 7px;
             height: 7px;
+
             background: var(--green);
             border-radius: 50%;
+
             display: inline-block;
             margin-left: 4px;
-            box-shadow: 0 0 10px rgba(182, 255, 0, 0.7);
+
+            box-shadow:
+                0 0 10px rgba(182, 255, 0, 0.7);
         }
 
         .nav {
@@ -310,15 +403,21 @@
         .nav-btn {
             height: 48px;
             width: 100%;
+
             padding: 0 14px;
+
             display: flex;
             align-items: center;
             gap: 12px;
+
             border: 1px solid transparent;
             border-radius: 15px;
+
             background: transparent;
             color: #a7aca5;
+
             text-align: left;
+
             transition: 0.18s ease;
         }
 
@@ -329,8 +428,12 @@
 
         .nav-btn.active {
             color: var(--green);
-            background: rgba(182, 255, 0, 0.07);
-            border-color: rgba(182, 255, 0, 0.13);
+
+            background:
+                rgba(182, 255, 0, 0.07);
+
+            border-color:
+                rgba(182, 255, 0, 0.13);
         }
 
         .nav-icon {
@@ -345,35 +448,58 @@
 
         .mini-profile {
             padding: 12px;
+
             display: flex;
             align-items: center;
             gap: 10px;
+
             border: 1px solid var(--border);
             background: rgba(255,255,255,0.025);
+
             border-radius: 17px;
         }
 
         .avatar {
             width: 39px;
             height: 39px;
+
             flex-shrink: 0;
+
             display: grid;
             place-items: center;
+
             border-radius: 13px;
+
             background:
                 linear-gradient(
                     135deg,
                     rgba(182, 255, 0, 0.2),
                     rgba(182, 255, 0, 0.04)
                 );
-            border: 1px solid rgba(182,255,0,0.18);
+
+            border:
+                1px solid rgba(182,255,0,0.18);
+
             color: var(--green);
             font-weight: 850;
+
+            overflow: hidden;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mini-profile-text {
+            min-width: 0;
         }
 
         .mini-name {
             font-size: 13px;
             font-weight: 750;
+
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -385,9 +511,9 @@
             margin-top: 2px;
         }
 
-        /* =========================
+        /* =====================================================
            MAIN
-        ========================= */
+        ===================================================== */
 
         .main {
             flex: 1;
@@ -406,17 +532,22 @@
             display: flex;
         }
 
-        /* =========================
+        /* =====================================================
            CHATS
-        ========================= */
+        ===================================================== */
 
         .chat-list-panel {
             width: 330px;
             height: 100%;
+
             border-right: 1px solid var(--border);
-            background: rgba(10, 11, 10, 0.5);
+
+            background:
+                rgba(10, 11, 10, 0.5);
+
             display: flex;
             flex-direction: column;
+
             flex-shrink: 0;
         }
 
@@ -443,15 +574,21 @@
 
         .chat-item {
             width: 100%;
+
             display: flex;
             align-items: center;
             gap: 12px;
+
             padding: 12px;
+
             border: 1px solid transparent;
             border-radius: 17px;
+
             background: transparent;
             color: var(--text);
+
             text-align: left;
+
             margin-bottom: 4px;
         }
 
@@ -460,8 +597,11 @@
         }
 
         .chat-item.active {
-            background: rgba(182,255,0,0.065);
-            border-color: rgba(182,255,0,0.1);
+            background:
+                rgba(182,255,0,0.065);
+
+            border-color:
+                rgba(182,255,0,0.1);
         }
 
         .chat-info {
@@ -472,6 +612,7 @@
         .chat-name {
             font-size: 14px;
             font-weight: 750;
+
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -481,6 +622,7 @@
             color: var(--muted);
             font-size: 12px;
             margin-top: 4px;
+
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -495,8 +637,10 @@
             flex: 1;
             min-width: 0;
             height: 100%;
+
             display: flex;
             flex-direction: column;
+
             background:
                 radial-gradient(
                     circle at 50% 30%,
@@ -507,12 +651,18 @@
 
         .chat-header {
             min-height: 76px;
+
             padding: 13px 20px;
+
             border-bottom: 1px solid var(--border);
+
             display: flex;
             align-items: center;
             gap: 12px;
-            background: rgba(10,11,10,0.38);
+
+            background:
+                rgba(10,11,10,0.38);
+
             backdrop-filter: blur(20px);
         }
 
@@ -532,29 +682,63 @@
 
         .messages {
             flex: 1;
+
             overflow-y: auto;
+
             padding: 25px;
+
             display: flex;
             flex-direction: column;
+
             gap: 8px;
         }
 
+        /*
+            ВАЖНО:
+
+            По умолчанию сообщение чужое -> слева.
+            .mine -> наше -> справа.
+
+            Класс .mine ставится ТОЛЬКО если
+            sender_id === currentUser.id.
+        */
+
         .message {
             max-width: min(70%, 620px);
+
             padding: 11px 14px;
+
             border-radius: 17px;
-            background: rgba(255,255,255,0.055);
-            border: 1px solid rgba(255,255,255,0.06);
+
+            background:
+                rgba(255,255,255,0.055);
+
+            border:
+                1px solid rgba(255,255,255,0.06);
+
             align-self: flex-start;
+
             word-break: break-word;
+
             line-height: 1.45;
             font-size: 14px;
+
+            animation:
+                messageIn 0.15s ease;
         }
 
         .message.mine {
             align-self: flex-end;
-            background: rgba(182,255,0,0.11);
-            border-color: rgba(182,255,0,0.15);
+
+            background:
+                rgba(182,255,0,0.11);
+
+            border-color:
+                rgba(182,255,0,0.15);
+        }
+
+        .message-text {
+            white-space: pre-wrap;
         }
 
         .message-time {
@@ -564,8 +748,21 @@
             text-align: right;
         }
 
+        @keyframes messageIn {
+            from {
+                opacity: 0;
+                transform: translateY(3px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .composer {
             padding: 15px 20px 19px;
+
             display: flex;
             gap: 9px;
         }
@@ -573,53 +770,84 @@
         .message-input {
             flex: 1;
             min-width: 0;
+
             height: 49px;
+
             padding: 0 16px;
+
             color: white;
-            background: rgba(255,255,255,0.035);
-            border: 1px solid var(--border);
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid var(--border);
+
             border-radius: 15px;
+
             outline: none;
         }
 
         .message-input:focus {
-            border-color: var(--border-green);
+            border-color:
+                var(--border-green);
         }
 
         .send-btn {
             width: 50px;
             height: 49px;
-            border: 1px solid rgba(182,255,0,0.25);
+
+            border:
+                1px solid rgba(182,255,0,0.25);
+
             border-radius: 15px;
-            background: rgba(182,255,0,0.1);
+
+            background:
+                rgba(182,255,0,0.1);
+
             color: var(--green);
+
             font-size: 19px;
+
             transition: 0.18s ease;
         }
 
         .send-btn:hover {
-            background: rgba(182,255,0,0.17);
+            background:
+                rgba(182,255,0,0.17);
         }
 
         .empty-chat {
             flex: 1;
+
             display: flex;
             align-items: center;
             justify-content: center;
+
             text-align: center;
+
             padding: 30px;
         }
 
         .empty-icon {
             width: 70px;
             height: 70px;
+
             margin: 0 auto 17px;
+
             border-radius: 23px;
+
             display: grid;
             place-items: center;
-            border: 1px solid var(--border);
-            background: rgba(255,255,255,0.025);
+
+            border:
+                1px solid var(--border);
+
+            background:
+                rgba(255,255,255,0.025);
+
             color: var(--green);
+
             font-size: 28px;
         }
 
@@ -632,18 +860,19 @@
         .empty-text {
             color: var(--muted);
             font-size: 13px;
-            max-width: 360px;
             line-height: 1.5;
         }
 
-        /* =========================
+        /* =====================================================
            OTHER VIEWS
-        ========================= */
+        ===================================================== */
 
         .content {
             width: 100%;
             height: 100%;
+
             overflow-y: auto;
+
             padding: 35px;
         }
 
@@ -666,13 +895,26 @@
 
         .glass-card {
             margin-top: 24px;
+
             padding: 22px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            background: var(--panel);
-            box-shadow: 0 15px 50px rgba(0,0,0,0.2);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                var(--radius);
+
+            background:
+                var(--panel);
+
+            box-shadow:
+                0 15px 50px rgba(0,0,0,0.2);
+
+            backdrop-filter:
+                blur(25px);
+
+            -webkit-backdrop-filter:
+                blur(25px);
         }
 
         .profile-big {
@@ -684,13 +926,21 @@
         .avatar.big {
             width: 72px;
             height: 72px;
+
             border-radius: 22px;
+
             font-size: 25px;
         }
 
         .profile-name {
             font-size: 22px;
             font-weight: 800;
+        }
+
+        .profile-username {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 4px;
         }
 
         .profile-status {
@@ -701,45 +951,64 @@
 
         .code-box {
             margin-top: 22px;
+
             display: flex;
             align-items: center;
             gap: 12px;
+
             padding: 15px;
-            border: 1px solid var(--border);
-            background: rgba(0,0,0,0.2);
+
+            border:
+                1px solid var(--border);
+
+            background:
+                rgba(0,0,0,0.2);
+
             border-radius: 17px;
         }
 
         .code-value {
             flex: 1;
+
             font-family: monospace;
+
             letter-spacing: 0.18em;
+
             font-weight: 850;
+
             color: var(--green);
         }
 
         .glass-btn {
             min-height: 43px;
+
             padding: 0 15px;
+
             border-radius: 13px;
-            border: 1px solid var(--border);
-            background: rgba(255,255,255,0.035);
+
+            border:
+                1px solid var(--border);
+
+            background:
+                rgba(255,255,255,0.035);
+
             color: #e7ebe4;
+
             transition: 0.18s ease;
         }
 
         .glass-btn:hover {
-            border-color: rgba(182,255,0,0.2);
-            background: rgba(182,255,0,0.055);
-        }
+            border-color:
+                rgba(182,255,0,0.2);
 
-        .glass-btn:disabled {
-            opacity: 0.55;
-            cursor: wait;
+            background:
+                rgba(182,255,0,0.055);
         }
 
         .green-btn {
-            border-color: rgba(182,255,0,0.2);
+            border-color:
+                rgba(182,255,0,0.2);
+
             color: var(--green);
         }
 
@@ -776,10 +1045,16 @@
             display: flex;
             align-items: center;
             gap: 12px;
+
             padding: 12px;
+
             border-radius: 16px;
-            background: rgba(255,255,255,0.025);
-            border: 1px solid rgba(255,255,255,0.05);
+
+            background:
+                rgba(255,255,255,0.025);
+
+            border:
+                1px solid rgba(255,255,255,0.05);
         }
 
         .friend-main {
@@ -802,82 +1077,17 @@
             gap: 6px;
         }
 
-        /* =========================
-           PROFILE EDIT
-        ========================= */
-
-        .profile-edit {
-            margin-top: 24px;
-        }
-
-        .profile-edit-title {
-            font-size: 14px;
-            font-weight: 800;
-            margin-bottom: 16px;
-        }
-
-        .profile-edit-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .profile-edit-field {
-            margin-bottom: 15px;
-        }
-
-        .profile-edit-field.full {
-            grid-column: 1 / -1;
-        }
-
-        .profile-edit-field label {
-            display: block;
-            color: #b7bcb5;
-            font-size: 12px;
-            font-weight: 650;
-            margin-bottom: 7px;
-        }
-
-        .profile-select {
-            width: 100%;
-            height: 49px;
-            padding: 0 15px;
-            color: var(--text);
-            background: rgba(0, 0, 0, 0.28);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            outline: none;
-        }
-
-        .profile-select:focus {
-            border-color: var(--border-green);
-            box-shadow: 0 0 0 3px rgba(182, 255, 0, 0.055);
-        }
-
-        .profile-select option {
-            background: #151815;
-            color: white;
-        }
-
-        .profile-save {
-            width: 100%;
-            margin-top: 4px;
-        }
-
-        .profile-hint {
-            color: var(--muted);
-            font-size: 11px;
-            line-height: 1.5;
-            margin-top: 9px;
-        }
-
         .settings-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             gap: 20px;
+
             padding: 16px 0;
-            border-bottom: 1px solid var(--border);
+
+            border-bottom:
+                1px solid var(--border);
         }
 
         .settings-row:last-child {
@@ -896,40 +1106,150 @@
             margin-top: 4px;
         }
 
-        /* =========================
+        /* =====================================================
+           PROFILE EDITOR
+        ===================================================== */
+
+        .profile-editor {
+            margin-top: 22px;
+
+            padding-top: 22px;
+
+            border-top:
+                1px solid var(--border);
+        }
+
+        .profile-field {
+            margin-bottom: 14px;
+        }
+
+        .profile-field:last-child {
+            margin-bottom: 0;
+        }
+
+        .profile-field-label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            letter-spacing: .06em;
+        }
+
+        .profile-editor-actions {
+            display: flex;
+            gap: 9px;
+            margin-top: 16px;
+        }
+
+        .profile-editor-actions .glass-btn {
+            flex: 1;
+        }
+
+        .profile-hint {
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 7px;
+        }
+
+        /* =====================================================
+           LOADING
+        ===================================================== */
+
+        .loading {
+            width: 17px;
+            height: 17px;
+
+            border:
+                2px solid rgba(0,0,0,0.2);
+
+            border-top-color:
+                #080908;
+
+            border-radius: 50%;
+
+            display: inline-block;
+
+            animation:
+                spin 0.7s linear infinite;
+
+            vertical-align: middle;
+        }
+
+        .loading.green {
+            border-color:
+                rgba(182,255,0,0.15);
+
+            border-top-color:
+                var(--green);
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* =====================================================
            TOAST
-        ========================= */
+        ===================================================== */
 
         .toast-container {
             position: fixed;
+
             right: 20px;
             bottom: 20px;
+
             z-index: 9999;
+
             display: flex;
             flex-direction: column;
             gap: 8px;
+
             pointer-events: none;
         }
 
         .toast {
             max-width: 330px;
+
             padding: 13px 16px;
+
             border-radius: 15px;
-            background: rgba(25,27,25,0.94);
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(20px);
+
+            background:
+                rgba(25,27,25,0.94);
+
+            border:
+                1px solid var(--border);
+
+            box-shadow:
+                var(--shadow);
+
+            backdrop-filter:
+                blur(20px);
+
             color: #e9eee7;
+
             font-size: 13px;
-            animation: toastIn 0.2s ease;
+
+            animation:
+                toastIn 0.2s ease;
         }
 
         .toast.success {
-            border-color: rgba(182,255,0,0.22);
+            border-color:
+                rgba(182,255,0,0.22);
         }
 
         .toast.error {
-            border-color: rgba(255,80,80,0.25);
+            border-color:
+                rgba(255,80,80,0.25);
         }
 
         @keyframes toastIn {
@@ -944,36 +1264,12 @@
             }
         }
 
-        /* =========================
-           LOADING
-        ========================= */
-
-        .loading {
-            width: 17px;
-            height: 17px;
-            border: 2px solid rgba(0,0,0,0.2);
-            border-top-color: #080908;
-            border-radius: 50%;
-            display: inline-block;
-            animation: spin 0.7s linear infinite;
-            vertical-align: middle;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* =========================
+        /* =====================================================
            MOBILE
-        ========================= */
-
-        .mobile-top {
-            display: none;
-        }
+        ===================================================== */
 
         @media (max-width: 850px) {
+
             body {
                 overflow: auto;
             }
@@ -990,7 +1286,7 @@
 
             .sidebar-brand-name,
             .online,
-            .mini-profile > div,
+            .mini-profile-text,
             .nav-btn span:not(.nav-icon) {
                 display: none;
             }
@@ -1020,18 +1316,29 @@
         }
 
         @media (max-width: 650px) {
+
             .sidebar {
                 position: fixed;
+
                 z-index: 50;
+
                 bottom: 0;
                 left: 0;
+
                 width: 100%;
                 height: 65px;
-                padding: 7px 10px;
+
+                padding:
+                    7px 10px;
+
                 border-right: 0;
-                border-top: 1px solid var(--border);
+                border-top:
+                    1px solid var(--border);
+
                 flex-direction: row;
-                background: rgba(9,10,9,0.93);
+
+                background:
+                    rgba(8,9,8,0.9);
             }
 
             .sidebar-brand,
@@ -1041,39 +1348,49 @@
 
             .nav {
                 width: 100%;
-                flex-direction: row;
-                justify-content: space-around;
+
+                display: grid;
+
+                grid-template-columns:
+                    repeat(4, 1fr);
+
+                gap: 5px;
             }
 
             .nav-btn {
-                width: 55px;
-                height: 51px;
+                height: 50px;
+                border-radius: 14px;
             }
 
             .main {
-                height: calc(100% - 65px);
+                padding-bottom: 65px;
             }
 
             .chat-list-panel {
                 width: 100%;
-                border-right: 0;
+                max-width: 270px;
             }
 
-            .chat-window {
-                display: none;
+            .message {
+                max-width: 82%;
             }
 
-            .view.chat-view.has-chat .chat-list-panel {
-                display: none;
+            .messages {
+                padding: 17px 13px;
             }
 
-            .view.chat-view.has-chat .chat-window {
-                display: flex;
-                width: 100%;
+            .composer {
+                padding:
+                    10px 10px 12px;
+            }
+
+            .chat-header {
+                padding:
+                    10px 13px;
             }
 
             .content {
-                padding: 20px 16px 30px;
+                padding: 18px;
             }
 
             .page-title {
@@ -1088,29 +1405,59 @@
                 width: 100%;
             }
 
-            .message {
-                max-width: 86%;
-            }
-
-            .auth-card {
-                padding: 26px 20px;
-            }
-
-            .profile-edit-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .profile-edit-field.full {
-                grid-column: auto;
+            .profile-big {
+                align-items: flex-start;
             }
 
             .code-box {
-                flex-direction: column;
-                align-items: stretch;
+                flex-wrap: wrap;
             }
 
-            .code-box .glass-btn {
+            .code-value {
+                min-width: 100%;
+            }
+
+            .toast-container {
+                left: 12px;
+                right: 12px;
+                bottom: 78px;
+            }
+
+            .toast {
+                max-width: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .auth-card {
+                padding: 25px 20px;
+                border-radius: 24px;
+            }
+
+            .auth-title {
+                font-size: 26px;
+            }
+
+            .chat-list-panel {
                 width: 100%;
+                max-width: 230px;
+            }
+
+            .chat-window {
+                min-width: 0;
+            }
+
+            .chat-header-name {
+                max-width: 150px;
+
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .request-actions {
+                flex-direction: column;
             }
         }
     </style>
@@ -1118,66 +1465,94 @@
 
 <body>
 
-    <!-- =========================
-         AUTH
-    ========================== -->
+    <!-- =====================================================
+         AUTH SCREEN
+    ====================================================== -->
 
-    <section class="auth-screen" id="authScreen">
-        <div class="auth-glow"></div>
+    <section
+        class="auth-screen"
+        id="authScreen"
+    >
+
+        <div class="auth-glow one"></div>
+        <div class="auth-glow two"></div>
 
         <div class="auth-card">
 
             <div class="brand">
-                <div class="brand-icon">M</div>
+
+                <div class="brand-icon">
+                    ◉
+                </div>
 
                 <div>
-                    <div class="brand-name">MESSENGER</div>
-                    <div class="brand-sub">PRIVATE COMMUNICATION</div>
+                    <div class="brand-name">
+                        MESSENGER
+                    </div>
+
+                    <div class="brand-sub">
+                        private communication
+                    </div>
                 </div>
+
             </div>
 
-            <h1 class="auth-title" id="authTitle">
+            <h1
+                class="auth-title"
+                id="authTitle"
+            >
                 Добро пожаловать
             </h1>
 
-            <p class="auth-description" id="authDescription">
-                Войди в аккаунт, чтобы продолжить общение.
+            <p
+                class="auth-description"
+                id="authDescription"
+            >
+                Войди в свой аккаунт, чтобы продолжить.
             </p>
 
-            <div class="auth-error" id="authError"></div>
+            <div
+                class="auth-error"
+                id="authError"
+            ></div>
 
             <form id="authForm">
 
                 <div class="field">
-                    <label for="authUsername">
+
+                    <label for="username">
                         Имя пользователя
                     </label>
 
                     <input
                         class="input"
-                        id="authUsername"
+                        id="username"
                         type="text"
                         autocomplete="username"
-                        placeholder="Например, Kirill"
-                        maxlength="24"
+                        maxlength="32"
+                        placeholder="Например, Player"
                         required
                     >
+
                 </div>
 
                 <div class="field">
-                    <label for="authPassword">
+
+                    <label for="password">
                         Пароль
                     </label>
 
                     <input
                         class="input"
-                        id="authPassword"
+                        id="password"
                         type="password"
                         autocomplete="current-password"
-                        placeholder="Минимум 6 символов"
                         minlength="6"
+                        maxlength="128"
+                        placeholder="Минимум 6 символов"
                         required
                     >
+
                 </div>
 
                 <button
@@ -1191,6 +1566,7 @@
             </form>
 
             <div class="switch-auth">
+
                 <span id="switchText">
                     Нет аккаунта?
                 </span>
@@ -1200,26 +1576,35 @@
                     id="switchAuthBtn"
                     type="button"
                 >
-                    Создать аккаунт
+                    Создать
                 </button>
+
             </div>
 
         </div>
+
     </section>
 
 
-    <!-- =========================
-         APP
-    ========================== -->
+    <!-- =====================================================
+         APPLICATION
+    ====================================================== -->
 
-    <section class="app" id="app">
+    <section
+        class="app"
+        id="app"
+    >
+
+        <!-- =================================================
+             SIDEBAR
+        ================================================== -->
 
         <aside class="sidebar">
 
             <div class="sidebar-brand">
 
                 <div class="sidebar-brand-icon">
-                    M
+                    ◉
                 </div>
 
                 <div class="sidebar-brand-name">
@@ -1234,38 +1619,61 @@
 
                 <button
                     class="nav-btn active"
+                    type="button"
                     data-view="chats"
-                    type="button"
                 >
-                    <span class="nav-icon">▣</span>
-                    <span>Чаты</span>
+                    <span class="nav-icon">
+                        ◫
+                    </span>
+
+                    <span>
+                        Чаты
+                    </span>
                 </button>
+
 
                 <button
                     class="nav-btn"
+                    type="button"
                     data-view="friends"
-                    type="button"
                 >
-                    <span class="nav-icon">♧</span>
-                    <span>Друзья</span>
+                    <span class="nav-icon">
+                        ♧
+                    </span>
+
+                    <span>
+                        Друзья
+                    </span>
                 </button>
+
 
                 <button
                     class="nav-btn"
+                    type="button"
                     data-view="profile"
-                    type="button"
                 >
-                    <span class="nav-icon">◉</span>
-                    <span>Профиль</span>
+                    <span class="nav-icon">
+                        ◉
+                    </span>
+
+                    <span>
+                        Профиль
+                    </span>
                 </button>
+
 
                 <button
                     class="nav-btn"
-                    data-view="settings"
                     type="button"
+                    data-view="settings"
                 >
-                    <span class="nav-icon">⚙</span>
-                    <span>Настройки</span>
+                    <span class="nav-icon">
+                        ⚙
+                    </span>
+
+                    <span>
+                        Настройки
+                    </span>
                 </button>
 
             </nav>
@@ -1279,10 +1687,10 @@
                         class="avatar"
                         id="miniAvatar"
                     >
-                        M
+                        ?
                     </div>
 
-                    <div>
+                    <div class="mini-profile-text">
 
                         <div
                             class="mini-name"
@@ -1307,18 +1715,22 @@
         </aside>
 
 
+        <!-- =================================================
+             MAIN
+        ================================================== -->
+
         <main class="main">
 
-            <!-- =========================
-                 CHATS
-            ========================== -->
+            <!-- =================================================
+                 CHATS VIEW
+            ================================================== -->
 
-            <div
-                class="view chat-view active"
+            <section
+                class="view active"
                 id="view-chats"
             >
 
-                <section class="chat-list-panel">
+                <div class="chat-list-panel">
 
                     <div class="panel-header">
 
@@ -1327,30 +1739,64 @@
                         </div>
 
                         <div class="panel-subtitle">
-                            Твои личные сообщения
+                            Личные сообщения
                         </div>
 
                     </div>
+
 
                     <div
                         class="chat-items"
                         id="chatItems"
                     >
+
                         <div
                             class="empty-text"
                             style="padding:20px;"
                         >
-                            Загрузка...
+                            Загружаем чаты...
                         </div>
+
                     </div>
 
-                </section>
+                </div>
 
 
-                <section
-                    class="chat-window"
-                    id="chatWindow"
-                >
+                <div class="chat-window">
+
+                    <div
+                        class="chat-header"
+                        id="chatHeader"
+                        style="display:none;"
+                    >
+
+                        <div
+                            class="avatar"
+                            id="chatHeaderAvatar"
+                        >
+                            ?
+                        </div>
+
+                        <div class="chat-header-info">
+
+                            <div
+                                class="chat-header-name"
+                                id="chatHeaderName"
+                            >
+                                Пользователь
+                            </div>
+
+                            <div
+                                class="chat-header-status"
+                                id="chatHeaderStatus"
+                            >
+                                offline
+                            </div>
+
+                        </div>
+
+                    </div>
+
 
                     <div
                         class="empty-chat"
@@ -1360,7 +1806,7 @@
                         <div>
 
                             <div class="empty-icon">
-                                ◇
+                                ◫
                             </div>
 
                             <div class="empty-title">
@@ -1368,8 +1814,7 @@
                             </div>
 
                             <div class="empty-text">
-                                Здесь появятся твои личные сообщения.
-                                Добавь друга и начни общение.
+                                Выбери друга слева или начни новый диалог.
                             </div>
 
                         </div>
@@ -1378,87 +1823,47 @@
 
 
                     <div
-                        id="activeChat"
-                        style="
-                            display:none;
-                            flex:1;
-                            min-height:0;
-                            flex-direction:column;
-                        "
+                        class="messages"
+                        id="messages"
+                        style="display:none;"
+                    ></div>
+
+
+                    <form
+                        class="composer"
+                        id="messageForm"
+                        style="display:none;"
                     >
 
-                        <header class="chat-header">
-
-                            <div
-                                class="avatar"
-                                id="chatAvatar"
-                            >
-                                ?
-                            </div>
-
-                            <div class="chat-header-info">
-
-                                <div
-                                    class="chat-header-name"
-                                    id="chatName"
-                                >
-                                    Пользователь
-                                </div>
-
-                                <div
-                                    class="chat-header-status"
-                                    id="chatStatus"
-                                >
-                                    offline
-                                </div>
-
-                            </div>
-
-                        </header>
-
-
-                        <div
-                            class="messages"
-                            id="messages"
-                        ></div>
-
-
-                        <form
-                            class="composer"
-                            id="messageForm"
+                        <input
+                            class="message-input"
+                            id="messageInput"
+                            type="text"
+                            maxlength="4000"
+                            autocomplete="off"
+                            placeholder="Напиши сообщение..."
                         >
 
-                            <input
-                                class="message-input"
-                                id="messageInput"
-                                type="text"
-                                maxlength="5000"
-                                autocomplete="off"
-                                placeholder="Напиши сообщение..."
-                            >
+                        <button
+                            class="send-btn"
+                            type="submit"
+                            title="Отправить"
+                        >
+                            ➤
+                        </button>
 
-                            <button
-                                class="send-btn"
-                                type="submit"
-                                title="Отправить"
-                            >
-                                ➤
-                            </button>
+                    </form>
 
-                        </form>
+                </div>
 
-                    </div>
-
-                </section>
-
-            </div>
+            </section>
 
 
-            <!-- =========================
-                 FRIENDS
-            ========================== -->
+            <!-- =================================================
+                 FRIENDS VIEW
+            ================================================== -->
 
-            <div
+            <section
                 class="view"
                 id="view-friends"
             >
@@ -1467,13 +1872,13 @@
 
                     <div class="content-inner">
 
-                        <h1 class="page-title">
+                        <div class="page-title">
                             Друзья
-                        </h1>
+                        </div>
 
-                        <p class="page-subtitle">
+                        <div class="page-subtitle">
                             Добавляй людей по уникальному коду.
-                        </p>
+                        </div>
 
 
                         <div class="glass-card">
@@ -1489,8 +1894,7 @@
                                     id="friendCodeInput"
                                     type="text"
                                     maxlength="6"
-                                    placeholder="Например, K7F2Q9"
-                                    autocomplete="off"
+                                    placeholder="Например: A7K2PQ"
                                 >
 
                                 <button
@@ -1506,10 +1910,7 @@
                         </div>
 
 
-                        <div
-                            class="glass-card"
-                            id="requestsCard"
-                        >
+                        <div class="glass-card">
 
                             <div class="section-title">
                                 Входящие заявки
@@ -1520,7 +1921,7 @@
                                 id="requestsList"
                             >
                                 <div class="empty-text">
-                                    Загрузка...
+                                    Загружаем...
                                 </div>
                             </div>
 
@@ -1538,7 +1939,7 @@
                                 id="friendsList"
                             >
                                 <div class="empty-text">
-                                    Загрузка...
+                                    Загружаем...
                                 </div>
                             </div>
 
@@ -1548,14 +1949,14 @@
 
                 </div>
 
-            </div>
+            </section>
 
 
-            <!-- =========================
-                 PROFILE
-            ========================== -->
+            <!-- =================================================
+                 PROFILE VIEW
+            ================================================== -->
 
-            <div
+            <section
                 class="view"
                 id="view-profile"
             >
@@ -1564,13 +1965,13 @@
 
                     <div class="content-inner">
 
-                        <h1 class="page-title">
+                        <div class="page-title">
                             Профиль
-                        </h1>
+                        </div>
 
-                        <p class="page-subtitle">
-                            Твоя информация в MESSENGER.
-                        </p>
+                        <div class="page-subtitle">
+                            Твои данные и настройки профиля.
+                        </div>
 
 
                         <div class="glass-card">
@@ -1581,23 +1982,30 @@
                                     class="avatar big"
                                     id="profileAvatar"
                                 >
-                                    M
+                                    ?
                                 </div>
 
                                 <div>
 
                                     <div
                                         class="profile-name"
-                                        id="profileUsername"
+                                        id="profileName"
                                     >
                                         Пользователь
+                                    </div>
+
+                                    <div
+                                        class="profile-username"
+                                        id="profileUsername"
+                                    >
+                                        @username
                                     </div>
 
                                     <div
                                         class="profile-status"
                                         id="profileStatus"
                                     >
-                                        ● в сети
+                                        В сети
                                     </div>
 
                                 </div>
@@ -1607,25 +2015,11 @@
 
                             <div class="code-box">
 
-                                <div>
-
-                                    <div
-                                        style="
-                                            color:var(--muted);
-                                            font-size:10px;
-                                            margin-bottom:5px;
-                                        "
-                                    >
-                                        МОЙ КОД
-                                    </div>
-
-                                    <div
-                                        class="code-value"
-                                        id="profileCode"
-                                    >
-                                        ------
-                                    </div>
-
+                                <div
+                                    class="code-value"
+                                    id="profileCode"
+                                >
+                                    ------
                                 </div>
 
                                 <button
@@ -1638,104 +2032,106 @@
 
                             </div>
 
-                        </div>
+
+                            <div class="profile-editor">
+
+                                <div class="section-title">
+                                    Изменить профиль
+                                </div>
 
 
-                        <!-- ИЗМЕНЕНИЕ ПРОФИЛЯ -->
+                                <div class="profile-field">
 
-                        <div class="glass-card profile-edit">
+                                    <label
+                                        class="profile-field-label"
+                                        for="profileDisplayName"
+                                    >
+                                        Отображаемое имя
+                                    </label>
 
-                            <div class="profile-edit-title">
-                                Изменить профиль
+                                    <input
+                                        class="input"
+                                        id="profileDisplayName"
+                                        type="text"
+                                        maxlength="50"
+                                        placeholder="Как тебя будут видеть"
+                                    >
+
+                                </div>
+
+
+                                <div class="profile-field">
+
+                                    <label
+                                        class="profile-field-label"
+                                        for="profileAvatarInput"
+                                    >
+                                        Ссылка на аватар
+                                    </label>
+
+                                    <input
+                                        class="input"
+                                        id="profileAvatarInput"
+                                        type="url"
+                                        maxlength="500"
+                                        placeholder="https://..."
+                                    >
+
+                                    <div class="profile-hint">
+                                        Можно оставить пустым.
+                                    </div>
+
+                                </div>
+
+
+                                <div class="profile-field">
+
+                                    <label
+                                        class="profile-field-label"
+                                        for="profileStatusMode"
+                                    >
+                                        Статус
+                                    </label>
+
+                                    <select
+                                        class="select"
+                                        id="profileStatusMode"
+                                    >
+
+                                        <option value="online">
+                                            В сети
+                                        </option>
+
+                                        <option value="away">
+                                            Отошёл
+                                        </option>
+
+                                        <option value="busy">
+                                            Не беспокоить
+                                        </option>
+
+                                        <option value="offline">
+                                            Невидимый
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <div class="profile-editor-actions">
+
+                                    <button
+                                        class="glass-btn green-btn"
+                                        id="saveProfileBtn"
+                                        type="button"
+                                    >
+                                        Сохранить
+                                    </button>
+
+                                </div>
+
                             </div>
-
-                            <form id="profileForm">
-
-                                <div class="profile-edit-grid">
-
-                                    <div class="profile-edit-field">
-
-                                        <label for="profileDisplayName">
-                                            Имя профиля
-                                        </label>
-
-                                        <input
-                                            class="input"
-                                            id="profileDisplayName"
-                                            type="text"
-                                            maxlength="32"
-                                            placeholder="Как тебя будут видеть"
-                                            autocomplete="off"
-                                            required
-                                        >
-
-                                    </div>
-
-
-                                    <div class="profile-edit-field">
-
-                                        <label for="profileAvatarInput">
-                                            Аватар
-                                        </label>
-
-                                        <input
-                                            class="input"
-                                            id="profileAvatarInput"
-                                            type="text"
-                                            maxlength="10"
-                                            placeholder="Например: 👾"
-                                            autocomplete="off"
-                                        >
-
-                                    </div>
-
-
-                                    <div class="profile-edit-field full">
-
-                                        <label for="profileStatusMode">
-                                            Статус
-                                        </label>
-
-                                        <select
-                                            class="profile-select"
-                                            id="profileStatusMode"
-                                        >
-                                            <option value="online">
-                                                🟢 В сети
-                                            </option>
-
-                                            <option value="away">
-                                                🟡 Отошёл
-                                            </option>
-
-                                            <option value="dnd">
-                                                🔴 Не беспокоить
-                                            </option>
-
-                                            <option value="invisible">
-                                                ⚫ Невидимка
-                                            </option>
-                                        </select>
-
-                                    </div>
-
-                                </div>
-
-
-                                <button
-                                    class="primary-btn profile-save"
-                                    id="profileSaveBtn"
-                                    type="submit"
-                                >
-                                    Сохранить изменения
-                                </button>
-
-                                <div class="profile-hint">
-                                    Логин и код друга изменить нельзя.
-                                    Они используются для входа и поиска друзей.
-                                </div>
-
-                            </form>
 
                         </div>
 
@@ -1743,14 +2139,14 @@
 
                 </div>
 
-            </div>
+            </section>
 
 
-            <!-- =========================
-                 SETTINGS
-            ========================== -->
+            <!-- =================================================
+                 SETTINGS VIEW
+            ================================================== -->
 
-            <div
+            <section
                 class="view"
                 id="view-settings"
             >
@@ -1759,13 +2155,13 @@
 
                     <div class="content-inner">
 
-                        <h1 class="page-title">
+                        <div class="page-title">
                             Настройки
-                        </h1>
+                        </div>
 
-                        <p class="page-subtitle">
+                        <div class="page-subtitle">
                             Управление аккаунтом.
-                        </p>
+                        </div>
 
 
                         <div class="glass-card">
@@ -1795,17 +2191,13 @@
                                 <div>
 
                                     <div class="settings-label">
-                                        Сервер
+                                        Сессия
                                     </div>
 
                                     <div class="settings-description">
-                                        Cloudflare Worker + D1
+                                        Вход сохраняется между обновлениями страницы.
                                     </div>
 
-                                </div>
-
-                                <div style="color:var(--green);">
-                                    ● online
                                 </div>
 
                             </div>
@@ -1820,7 +2212,7 @@
                                     </div>
 
                                     <div class="settings-description">
-                                        Завершить текущую сессию.
+                                        Удалить сохранённую сессию с этого устройства.
                                     </div>
 
                                 </div>
@@ -1841,12 +2233,16 @@
 
                 </div>
 
-            </div>
+            </section>
 
         </main>
 
     </section>
 
+
+    <!-- =====================================================
+         TOAST
+    ====================================================== -->
 
     <div
         class="toast-container"
@@ -1856,9 +2252,9 @@
 
     <script>
 
-        // ======================================================
-        // CONFIG
-        // ======================================================
+        /* =====================================================
+           CONFIG
+        ===================================================== */
 
         const API_URL =
             "https://messenger-api.kgrechushnikov.workers.dev";
@@ -1867,22 +2263,48 @@
             "messenger_session_token";
 
 
-        // ======================================================
-        // STATE
-        // ======================================================
+        /* =====================================================
+           STATE
+        ===================================================== */
 
         let isRegisterMode = false;
+
         let currentUser = null;
+
         let chats = [];
+
         let friends = [];
+
         let requests = [];
+
         let activeChat = null;
+
         let messageTimer = null;
 
+        /*
+            Номер последнего запроса сообщений.
 
-        // ======================================================
-        // DOM
-        // ======================================================
+            Нужен для защиты от ситуации:
+
+            1. открыли чат A
+            2. запрос сообщений A отправился
+            3. сразу открыли чат B
+            4. запрос B отправился
+            5. ответ A пришёл позже B
+
+            Без защиты A мог перерисовать B.
+        */
+        let messageRequestId = 0;
+
+        /*
+            ID чата, для которого сейчас загружаются сообщения.
+        */
+        let loadingMessagesForChat = null;
+
+
+        /* =====================================================
+           DOM
+        ===================================================== */
 
         const authScreen =
             document.getElementById("authScreen");
@@ -1911,42 +2333,29 @@
         const authError =
             document.getElementById("authError");
 
-        const authUsername =
-            document.getElementById("authUsername");
+        const usernameInput =
+            document.getElementById("username");
 
-        const authPassword =
-            document.getElementById("authPassword");
-
-
-        const profileForm =
-            document.getElementById("profileForm");
-
-        const profileDisplayName =
-            document.getElementById("profileDisplayName");
-
-        const profileAvatarInput =
-            document.getElementById("profileAvatarInput");
-
-        const profileStatusMode =
-            document.getElementById("profileStatusMode");
-
-        const profileSaveBtn =
-            document.getElementById("profileSaveBtn");
+        const passwordInput =
+            document.getElementById("password");
 
 
-        // ======================================================
-        // API
-        // ======================================================
+        /* =====================================================
+           API
+        ===================================================== */
 
-        async function api(path, options = {}) {
+        async function api(
+            path,
+            options = {}
+        ) {
+
+            const token =
+                localStorage.getItem(TOKEN_KEY);
 
             const headers = {
                 "Content-Type": "application/json",
                 ...(options.headers || {})
             };
-
-            const token =
-                localStorage.getItem(TOKEN_KEY);
 
             if (token) {
                 headers.Authorization =
@@ -1957,57 +2366,101 @@
 
             try {
 
-                response = await fetch(
-                    API_URL + path,
-                    {
-                        ...options,
-                        headers
-                    }
-                );
+                response =
+                    await fetch(
+                        API_URL + path,
+                        {
+                            ...options,
+                            headers
+                        }
+                    );
 
             } catch (error) {
 
-                throw new Error(
-                    "Не удалось подключиться к серверу."
-                );
+                const networkError =
+                    new Error(
+                        "Не удалось подключиться к серверу."
+                    );
+
+                networkError.code =
+                    "NETWORK_ERROR";
+
+                throw networkError;
             }
+
 
             let data = null;
 
             try {
-                data = await response.json();
+
+                data =
+                    await response.json();
+
             } catch {
+
                 data = null;
+
             }
+
 
             if (!response.ok) {
 
-                const message =
-                    data?.error ||
-                    `Ошибка сервера (${response.status})`;
+                const error =
+                    new Error(
+                        data?.error ||
+                        `Ошибка сервера (${response.status}).`
+                    );
 
-                throw new Error(message);
+                error.status =
+                    response.status;
+
+                error.code =
+                    response.status === 401
+                        ? "AUTH_ERROR"
+                        : "API_ERROR";
+
+                throw error;
             }
+
+
+            if (
+                data &&
+                data.success === false
+            ) {
+
+                const error =
+                    new Error(
+                        data.error ||
+                        "Произошла ошибка."
+                    );
+
+                error.status =
+                    response.status;
+
+                throw error;
+            }
+
 
             return data;
         }
 
 
-        // ======================================================
-        // AUTH MODE
-        // ======================================================
+        /* =====================================================
+           AUTH MODE
+        ===================================================== */
 
         function updateAuthMode() {
 
-            authError.style.display = "none";
+            authError.style.display =
+                "none";
 
             if (isRegisterMode) {
 
                 authTitle.textContent =
-                    "Создать аккаунт";
+                    "Создай аккаунт";
 
                 authDescription.textContent =
-                    "Создай аккаунт и получи уникальный код для добавления друзей.";
+                    "Зарегистрируйся и получи свой уникальный код.";
 
                 authSubmit.textContent =
                     "Создать аккаунт";
@@ -2018,7 +2471,7 @@
                 switchAuthBtn.textContent =
                     "Войти";
 
-                authPassword.autocomplete =
+                passwordInput.autocomplete =
                     "new-password";
 
             } else {
@@ -2027,7 +2480,7 @@
                     "Добро пожаловать";
 
                 authDescription.textContent =
-                    "Войди в аккаунт, чтобы продолжить общение.";
+                    "Войди в свой аккаунт, чтобы продолжить.";
 
                 authSubmit.textContent =
                     "Войти";
@@ -2036,9 +2489,9 @@
                     "Нет аккаунта?";
 
                 switchAuthBtn.textContent =
-                    "Создать аккаунт";
+                    "Создать";
 
-                authPassword.autocomplete =
+                passwordInput.autocomplete =
                     "current-password";
             }
         }
@@ -2054,20 +2507,26 @@
                 authForm.reset();
 
                 updateAuthMode();
+
             }
         );
 
 
-        function showAuthError(message) {
+        function showAuthError(
+            message
+        ) {
 
-            authError.textContent = message;
-            authError.style.display = "block";
+            authError.textContent =
+                message;
+
+            authError.style.display =
+                "block";
         }
 
 
-        // ======================================================
-        // AUTH SUBMIT
-        // ======================================================
+        /* =====================================================
+           AUTH SUBMIT
+        ===================================================== */
 
         authForm.addEventListener(
             "submit",
@@ -2076,24 +2535,41 @@
                 event.preventDefault();
 
                 const username =
-                    authUsername.value.trim();
+                    usernameInput.value.trim();
 
                 const password =
-                    authPassword.value;
+                    passwordInput.value;
 
-                if (!username || !password) {
+
+                if (!username) {
 
                     showAuthError(
-                        "Заполни все поля."
+                        "Введите имя пользователя."
                     );
 
                     return;
                 }
 
-                authSubmit.disabled = true;
+
+                if (password.length < 6) {
+
+                    showAuthError(
+                        "Пароль должен содержать минимум 6 символов."
+                    );
+
+                    return;
+                }
+
+
+                authError.style.display =
+                    "none";
+
+                authSubmit.disabled =
+                    true;
 
                 authSubmit.innerHTML =
                     '<span class="loading"></span>';
+
 
                 try {
 
@@ -2102,27 +2578,48 @@
                             ? "/api/register"
                             : "/api/login";
 
+
                     const data =
                         await api(
                             endpoint,
                             {
                                 method: "POST",
-                                body: JSON.stringify({
-                                    username,
-                                    password
-                                })
+
+                                body:
+                                    JSON.stringify({
+                                        username,
+                                        password
+                                    })
                             }
                         );
 
+
+                    if (!data.token) {
+
+                        throw new Error(
+                            "Сервер не вернул токен сессии."
+                        );
+                    }
+
+
+                    /*
+                        Сессия сохраняется в localStorage.
+
+                        Поэтому обычное обновление страницы
+                        НЕ должно выбрасывать пользователя.
+                    */
                     localStorage.setItem(
                         TOKEN_KEY,
                         data.token
                     );
 
+
                     currentUser =
                         data.user;
 
+
                     showApp();
+
 
                     showToast(
                         isRegisterMode
@@ -2139,75 +2636,114 @@
 
                 } finally {
 
-                    authSubmit.disabled = false;
+                    authSubmit.disabled =
+                        false;
 
-                    authSubmit.textContent =
-                        isRegisterMode
-                            ? "Создать аккаунт"
-                            : "Войти";
+                    updateAuthMode();
+
                 }
+
             }
         );
 
 
-        // ======================================================
-        // USER HELPERS
-        // ======================================================
-
-        function getUserDisplayName(user) {
-
-            return (
-                user?.display_name ||
-                user?.username ||
-                "Пользователь"
-            );
-        }
-
-
-        function getUserAvatar(user) {
-
-            return (
-                user?.avatar ||
-                getUserDisplayName(user)
-                    .charAt(0)
-                    .toUpperCase()
-            );
-        }
-
-
-        function getStatusText(user) {
-
-            const mode =
-                user?.status_mode || "online";
-
-            const statuses = {
-                online: "● в сети",
-                away: "● отошёл",
-                dnd: "● не беспокоить",
-                invisible: "● невидимка"
-            };
-
-            return (
-                statuses[mode] ||
-                statuses.online
-            );
-        }
-
-
-        // ======================================================
-        // SHOW APP
-        // ======================================================
+        /* =====================================================
+           SHOW APP
+        ===================================================== */
 
         function showApp() {
 
             authScreen.style.display =
                 "none";
 
-            app.classList.add("active");
+            app.classList.add(
+                "active"
+            );
 
             updateUserUI();
 
             loadAll();
+
+            startMessagePolling();
+
+            startSessionHeartbeat();
+        }
+
+
+        /* =====================================================
+           USER UI
+        ===================================================== */
+
+        function getDisplayName(
+            user
+        ) {
+
+            if (!user) {
+                return "Пользователь";
+            }
+
+            return (
+                String(
+                    user.display_name || ""
+                ).trim()
+                ||
+                user.username
+                ||
+                "Пользователь"
+            );
+        }
+
+
+        function getAvatarLetter(
+            user
+        ) {
+
+            const name =
+                getDisplayName(user);
+
+            return (
+                name
+                    .charAt(0)
+                    .toUpperCase()
+                ||
+                "?"
+            );
+        }
+
+
+        function setAvatarElement(
+            element,
+            user
+        ) {
+
+            if (!element) {
+                return;
+            }
+
+
+            const avatar =
+                String(
+                    user?.avatar || ""
+                ).trim();
+
+
+            if (avatar) {
+
+                element.innerHTML = `
+                    <img
+                        src="${escapeAttribute(avatar)}"
+                        alt=""
+                        onerror="this.parentElement.textContent='${escapeAttribute(
+                            getAvatarLetter(user)
+                        )}'"
+                    >
+                `;
+
+            } else {
+
+                element.textContent =
+                    getAvatarLetter(user);
+            }
         }
 
 
@@ -2217,158 +2753,236 @@
                 return;
             }
 
-            const displayName =
-                getUserDisplayName(currentUser);
 
-            const avatar =
-                getUserAvatar(currentUser);
+            setAvatarElement(
+                document.getElementById(
+                    "miniAvatar"
+                ),
+                currentUser
+            );
 
-            document.getElementById(
-                "miniAvatar"
-            ).textContent = avatar;
 
-            document.getElementById(
-                "profileAvatar"
-            ).textContent = avatar;
+            setAvatarElement(
+                document.getElementById(
+                    "profileAvatar"
+                ),
+                currentUser
+            );
+
 
             document.getElementById(
                 "miniUsername"
             ).textContent =
-                displayName;
+                getDisplayName(
+                    currentUser
+                );
+
 
             document.getElementById(
                 "miniCode"
             ).textContent =
-                currentUser.friend_code;
+                currentUser.friend_code ||
+                "------";
+
+
+            document.getElementById(
+                "profileName"
+            ).textContent =
+                getDisplayName(
+                    currentUser
+                );
+
 
             document.getElementById(
                 "profileUsername"
             ).textContent =
-                displayName;
+                "@" +
+                (
+                    currentUser.username ||
+                    ""
+                );
+
 
             document.getElementById(
                 "profileCode"
             ).textContent =
-                currentUser.friend_code;
+                currentUser.friend_code ||
+                "------";
+
 
             document.getElementById(
                 "settingsAccount"
             ).textContent =
-                currentUser.username +
-                " · " +
-                currentUser.friend_code;
-
-            const profileStatus =
-                document.querySelector(
-                    "#view-profile .profile-status"
+                (
+                    currentUser.username ||
+                    "Пользователь"
+                )
+                +
+                " · "
+                +
+                (
+                    currentUser.friend_code ||
+                    "------"
                 );
 
-            if (profileStatus) {
 
-                profileStatus.textContent =
-                    getStatusText(currentUser);
-            }
+            const statusText =
+                getStatusText(
+                    currentUser
+                );
 
-            if (profileDisplayName) {
 
-                profileDisplayName.value =
-                    currentUser.display_name ||
-                    currentUser.username;
-            }
+            document.getElementById(
+                "profileStatus"
+            ).textContent =
+                statusText;
 
-            if (profileAvatarInput) {
 
-                profileAvatarInput.value =
-                    currentUser.avatar || "";
-            }
+            document.getElementById(
+                "profileDisplayName"
+            ).value =
+                currentUser.display_name ||
+                currentUser.username ||
+                "";
 
-            if (profileStatusMode) {
 
-                profileStatusMode.value =
-                    currentUser.status_mode ||
-                    "online";
-            }
+            document.getElementById(
+                "profileAvatarInput"
+            ).value =
+                currentUser.avatar ||
+                "";
+
+
+            document.getElementById(
+                "profileStatusMode"
+            ).value =
+                currentUser.status_mode ||
+                "online";
         }
 
 
-        // ======================================================
-        // LOAD ALL
-        // ======================================================
+        function getStatusText(
+            user
+        ) {
+
+            const mode =
+                user?.status_mode ||
+                "online";
+
+
+            if (mode === "away") {
+                return "Отошёл";
+            }
+
+            if (mode === "busy") {
+                return "Не беспокоить";
+            }
+
+            if (mode === "offline") {
+                return "Невидимый";
+            }
+
+            return "В сети";
+        }
+
+
+        /* =====================================================
+           LOAD ALL
+        ===================================================== */
 
         async function loadAll() {
 
-            await Promise.all([
+            await Promise.allSettled([
                 loadChats(),
                 loadFriends(),
                 loadRequests()
             ]);
+
         }
 
 
-        // ======================================================
-        // NAVIGATION
-        // ======================================================
+        /* =====================================================
+           NAVIGATION
+        ===================================================== */
 
         document
             .querySelectorAll(".nav-btn")
-            .forEach(button => {
+            .forEach(
+                button => {
 
-                button.addEventListener(
-                    "click",
-                    () => {
+                    button.addEventListener(
+                        "click",
+                        () => {
 
-                        const view =
-                            button.dataset.view;
+                            const view =
+                                button.dataset.view;
 
-                        document
-                            .querySelectorAll(".nav-btn")
-                            .forEach(btn =>
-                                btn.classList.remove(
-                                    "active"
-                                )
-                            );
 
-                        button.classList.add(
-                            "active"
-                        );
+                            document
+                                .querySelectorAll(".nav-btn")
+                                .forEach(
+                                    btn =>
+                                        btn.classList.remove(
+                                            "active"
+                                        )
+                                );
 
-                        document
-                            .querySelectorAll(".view")
-                            .forEach(v =>
-                                v.classList.remove(
-                                    "active"
-                                )
-                            );
 
-                        const target =
-                            document.getElementById(
-                                "view-" + view
-                            );
-
-                        if (target) {
-
-                            target.classList.add(
+                            button.classList.add(
                                 "active"
                             );
+
+
+                            document
+                                .querySelectorAll(".view")
+                                .forEach(
+                                    viewElement =>
+                                        viewElement.classList.remove(
+                                            "active"
+                                        )
+                                );
+
+
+                            const target =
+                                document.getElementById(
+                                    "view-" + view
+                                );
+
+
+                            if (target) {
+
+                                target.classList.add(
+                                    "active"
+                                );
+
+                            }
+
                         }
-                    }
-                );
-            });
+                    );
+
+                }
+            );
 
 
-        // ======================================================
-        // CHATS
-        // ======================================================
+        /* =====================================================
+           CHATS
+        ===================================================== */
 
         async function loadChats() {
 
             try {
 
                 const data =
-                    await api("/api/chats");
+                    await api(
+                        "/api/chats"
+                    );
+
 
                 chats =
-                    data.chats || [];
+                    Array.isArray(data?.chats)
+                        ? data.chats
+                        : [];
+
 
                 renderChats();
 
@@ -2381,10 +2995,14 @@
                         class="empty-text"
                         style="padding:20px;"
                     >
-                        ${escapeHtml(error.message)}
+                        ${escapeHtml(
+                            error.message
+                        )}
                     </div>
                 `;
+
             }
+
         }
 
 
@@ -2395,6 +3013,7 @@
                     "chatItems"
                 );
 
+
             if (!chats.length) {
 
                 container.innerHTML = `
@@ -2402,142 +3021,344 @@
                         class="empty-text"
                         style="padding:20px;"
                     >
-                        Пока нет чатов.<br>
-                        Добавь друга, чтобы начать общение.
+                        У тебя пока нет чатов.
                     </div>
                 `;
 
                 return;
             }
 
+
             container.innerHTML =
-                chats.map(chat => {
+                chats
+                    .map(
+                        chat => {
 
-                    const displayName =
-                        chat.display_name ||
-                        chat.username ||
-                        "Пользователь";
+                            const chatId =
+                                Number(
+                                    chat.chat_id ??
+                                    chat.id
+                                );
 
-                    const avatar =
-                        chat.avatar ||
-                        displayName
-                            .charAt(0)
-                            .toUpperCase();
 
-                    const active =
-                        activeChat &&
-                        Number(activeChat.id) ===
-                        Number(chat.chat_id)
-                            ? "active"
-                            : "";
+                            const userId =
+                                Number(
+                                    chat.user_id ??
+                                    chat.peer_id ??
+                                    chat.other_user_id
+                                );
 
-                    return `
-                        <button
-                            class="chat-item ${active}"
-                            type="button"
-                            onclick="openExistingChat(${chat.chat_id})"
-                        >
 
-                            <div class="avatar">
-                                ${escapeHtml(avatar)}
-                            </div>
+                            const name =
+                                getChatName(
+                                    chat
+                                );
 
-                            <div class="chat-info">
 
-                                <div class="chat-name">
-                                    ${escapeHtml(displayName)}
-                                </div>
+                            const lastText =
+                                chat.last_message ||
+                                chat.last_text ||
+                                "";
 
-                                <div class="chat-last">
-                                    ${escapeHtml(
-                                        chat.last_message ||
-                                        "Новый чат"
-                                    )}
-                                </div>
 
-                            </div>
+                            const active =
+                                activeChat &&
+                                Number(
+                                    activeChat.id
+                                ) === chatId;
 
-                        </button>
-                    `;
 
-                }).join("");
+                            const time =
+                                formatTime(
+                                    chat.last_created_at ||
+                                    chat.last_message_created_at ||
+                                    chat.created_at
+                                );
+
+
+                            return `
+                                <button
+                                    class="chat-item ${active ? "active" : ""}"
+                                    type="button"
+                                    data-chat-id="${chatId}"
+                                    onclick="openExistingChat(${chatId})"
+                                >
+
+                                    <div class="avatar">
+                                        ${
+                                            chat.avatar
+                                                ? `
+                                                    <img
+                                                        src="${escapeAttribute(chat.avatar)}"
+                                                        alt=""
+                                                    >
+                                                `
+                                                : escapeHtml(
+                                                    getAvatarLetter(
+                                                        {
+                                                            display_name:
+                                                                chat.display_name,
+                                                            username:
+                                                                chat.username
+                                                        }
+                                                    )
+                                                )
+                                        }
+                                    </div>
+
+                                    <div class="chat-info">
+
+                                        <div class="chat-name">
+                                            ${escapeHtml(name)}
+                                        </div>
+
+                                        <div class="chat-last">
+                                            ${escapeHtml(
+                                                lastText ||
+                                                "Нет сообщений"
+                                            )}
+                                        </div>
+
+                                    </div>
+
+                                    ${
+                                        time
+                                            ? `
+                                                <div class="chat-time">
+                                                    ${escapeHtml(time)}
+                                                </div>
+                                            `
+                                            : ""
+                                    }
+
+                                </button>
+                            `;
+                        }
+                    )
+                    .join("");
+
         }
 
 
-        async function openExistingChat(chatId) {
+        function getChatName(
+            chat
+        ) {
+
+            return (
+                String(
+                    chat.display_name ||
+                    ""
+                ).trim()
+                ||
+                String(
+                    chat.username ||
+                    ""
+                ).trim()
+                ||
+                "Пользователь"
+            );
+        }
+
+
+        async function openExistingChat(
+            chatId
+        ) {
+
+            const numericChatId =
+                Number(chatId);
+
+
+            if (!Number.isFinite(
+                numericChatId
+            )) {
+                return;
+            }
+
 
             const chat =
                 chats.find(
-                    c =>
-                        Number(c.chat_id) ===
-                        Number(chatId)
+                    item =>
+                        Number(
+                            item.chat_id ??
+                            item.id
+                        ) ===
+                        numericChatId
                 );
 
-            if (!chat) {
-                return;
-            }
 
-            const displayName =
-                chat.display_name ||
-                chat.username ||
-                "Пользователь";
+            /*
+                Сразу меняем activeChat.
 
-            const avatar =
-                chat.avatar ||
-                displayName
-                    .charAt(0)
-                    .toUpperCase();
-
+                Старые запросы сообщений больше
+                не имеют права менять экран.
+            */
             activeChat = {
-                id: chat.chat_id,
-                userId: chat.user_id,
-                username: chat.username,
-                displayName,
-                avatar,
-                status: chat.status,
-                status_mode: chat.status_mode
+                id: numericChatId,
+
+                userId:
+                    Number(
+                        chat?.user_id ??
+                        chat?.peer_id ??
+                        chat?.other_user_id ??
+                        0
+                    ),
+
+                username:
+                    chat?.username ||
+                    "",
+
+                display_name:
+                    chat?.display_name ||
+                    "",
+
+                avatar:
+                    chat?.avatar ||
+                    "",
+
+                status:
+                    chat?.status ||
+                    chat?.status_mode ||
+                    "offline"
             };
+
+
+            messageRequestId++;
+
+
+            const header =
+                document.getElementById(
+                    "chatHeader"
+                );
+
+            const empty =
+                document.getElementById(
+                    "emptyChat"
+                );
+
+            const messages =
+                document.getElementById(
+                    "messages"
+                );
+
+            const composer =
+                document.getElementById(
+                    "messageForm"
+                );
+
+
+            header.style.display =
+                "flex";
+
+            empty.style.display =
+                "none";
+
+            messages.style.display =
+                "flex";
+
+            composer.style.display =
+                "flex";
+
+
+            setAvatarElement(
+                document.getElementById(
+                    "chatHeaderAvatar"
+                ),
+                activeChat
+            );
+
+
+            document.getElementById(
+                "chatHeaderName"
+            ).textContent =
+                getDisplayName(
+                    activeChat
+                );
+
+
+            document.getElementById(
+                "chatHeaderStatus"
+            ).textContent =
+                getStatusText(
+                    activeChat
+                );
+
+
+            /*
+                Очищаем старые сообщения,
+                чтобы сообщения предыдущего чата
+                не оставались на экране.
+            */
+            messages.innerHTML = `
+                <div
+                    class="empty-text"
+                    style="margin:auto;"
+                >
+                    <span class="loading green"></span>
+                    Загрузка сообщений...
+                </div>
+            `;
+
 
             renderChats();
 
-            document.getElementById(
-                "emptyChat"
-            ).style.display = "none";
 
-            document.getElementById(
-                "activeChat"
-            ).style.display = "flex";
+            await loadMessages(
+                numericChatId
+            );
 
-            document.getElementById(
-                "chatName"
-            ).textContent =
-                displayName;
 
-            document.getElementById(
-                "chatStatus"
-            ).textContent =
-                getStatusText(chat);
+            const input =
+                document.getElementById(
+                    "messageInput"
+                );
 
-            document.getElementById(
-                "chatAvatar"
-            ).textContent =
-                avatar;
 
-            document
-                .getElementById("view-chats")
-                .classList.add("has-chat");
+            setTimeout(
+                () => {
+                    input.focus();
+                },
+                50
+            );
 
-            await loadMessages();
-
-            startMessagePolling();
         }
 
 
-        async function loadMessages() {
+        /* =====================================================
+           MESSAGES
+        ===================================================== */
 
-            if (!activeChat) {
+        async function loadMessages(
+            requestedChatId = null
+        ) {
+
+            const chatId =
+                Number(
+                    requestedChatId ??
+                    activeChat?.id
+                );
+
+
+            if (
+                !activeChat ||
+                !Number.isFinite(chatId)
+            ) {
                 return;
             }
+
+
+            /*
+                Увеличиваем ID запроса.
+
+                Только самый последний запрос
+                сможет изменить интерфейс.
+            */
+            const requestId =
+                ++messageRequestId;
+
+
+            loadingMessagesForChat =
+                chatId;
+
 
             try {
 
@@ -2545,74 +3366,389 @@
                     await api(
                         "/api/messages?chat_id=" +
                         encodeURIComponent(
-                            activeChat.id
+                            chatId
                         )
                     );
 
+
+                /*
+                    Проверяем, что пользователь всё ещё
+                    находится в этом же чате.
+
+                    Если уже открыл другой чат —
+                    полностью игнорируем ответ.
+                */
+                if (
+                    !activeChat ||
+                    Number(
+                        activeChat.id
+                    ) !== chatId ||
+                    requestId !== messageRequestId
+                ) {
+                    return;
+                }
+
+
+                const incomingMessages =
+                    Array.isArray(
+                        data?.messages
+                    )
+                        ? data.messages
+                        : [];
+
+
                 renderMessages(
-                    data.messages || []
+                    incomingMessages,
+                    chatId
                 );
 
             } catch (error) {
 
-                showToast(
-                    error.message,
-                    "error"
-                );
+                if (
+                    !activeChat ||
+                    Number(
+                        activeChat.id
+                    ) !== chatId ||
+                    requestId !== messageRequestId
+                ) {
+                    return;
+                }
+
+
+                document.getElementById(
+                    "messages"
+                ).innerHTML = `
+                    <div
+                        class="empty-text"
+                        style="margin:auto;text-align:center;"
+                    >
+                        ${escapeHtml(
+                            error.message
+                        )}
+                    </div>
+                `;
+
+            } finally {
+
+                if (
+                    loadingMessagesForChat ===
+                    chatId
+                ) {
+                    loadingMessagesForChat =
+                        null;
+                }
+
             }
+
         }
 
 
-        function renderMessages(messages) {
+        function renderMessages(
+            incomingMessages,
+            chatId
+        ) {
 
             const container =
                 document.getElementById(
                     "messages"
                 );
 
-            container.innerHTML =
-                messages.map(message => {
 
-                    const mine =
-                        Number(message.sender_id) ===
-                        Number(currentUser.id);
+            /*
+                Никогда не рисуем сообщения
+                для другого открытого чата.
+            */
+            if (
+                !activeChat ||
+                Number(
+                    activeChat.id
+                ) !== Number(chatId)
+            ) {
+                return;
+            }
 
-                    const date =
-                        new Date(
-                            message.created_at * 1000
-                        );
 
-                    const time =
-                        date.toLocaleTimeString(
-                            "ru-RU",
-                            {
-                                hour: "2-digit",
-                                minute: "2-digit"
+            const messages =
+                incomingMessages
+                    .filter(
+                        message =>
+                            Number(
+                                message.chat_id
+                            ) ===
+                            Number(chatId)
+                            ||
+                            message.chat_id == null
+                    )
+                    .map(
+                        message => ({
+                            ...message,
+
+                            id:
+                                Number(
+                                    message.id
+                                ),
+
+                            sender_id:
+                                Number(
+                                    message.sender_id
+                                ),
+
+                            created_at:
+                                Number(
+                                    message.created_at
+                                )
+                        })
+                    )
+                    .sort(
+                        (a, b) => {
+
+                            const timeDifference =
+                                Number(
+                                    a.created_at || 0
+                                )
+                                -
+                                Number(
+                                    b.created_at || 0
+                                );
+
+
+                            if (
+                                timeDifference !== 0
+                            ) {
+                                return timeDifference;
                             }
-                        );
 
-                    return `
-                        <div
-                            class="message ${mine ? "mine" : ""}"
-                        >
 
-                            <div>
-                                ${escapeHtml(message.text)}
+                            return (
+                                Number(
+                                    a.id || 0
+                                )
+                                -
+                                Number(
+                                    b.id || 0
+                                )
+                            );
+                        }
+                    );
+
+
+            if (!messages.length) {
+
+                container.innerHTML = `
+                    <div
+                        class="empty-chat"
+                        style="padding:20px;"
+                    >
+
+                        <div>
+
+                            <div class="empty-icon">
+                                ◫
                             </div>
 
-                            <div class="message-time">
-                                ${time}
+                            <div class="empty-title">
+                                Пока пусто
+                            </div>
+
+                            <div class="empty-text">
+                                Отправь первое сообщение.
                             </div>
 
                         </div>
-                    `;
 
-                }).join("");
+                    </div>
+                `;
 
+                return;
+            }
+
+
+            /*
+                КЛЮЧЕВОЙ МОМЕНТ.
+
+                Сообщение принадлежит пользователю,
+                если sender_id совпадает с currentUser.id.
+
+                Не используем:
+                - username
+                - порядок сообщений
+                - user_id чата
+                - display_name
+
+                Поэтому сообщения не будут путаться.
+            */
+            container.innerHTML =
+                messages
+                    .map(
+                        message => {
+
+                            const senderId =
+                                Number(
+                                    message.sender_id
+                                );
+
+
+                            const currentUserId =
+                                Number(
+                                    currentUser?.id
+                                );
+
+
+                            const mine =
+                                senderId ===
+                                currentUserId;
+
+
+                            const messageText =
+                                String(
+                                    message.text ??
+                                    ""
+                                );
+
+
+                            return `
+                                <div
+                                    class="message ${mine ? "mine" : ""}"
+                                    data-message-id="${Number(
+                                        message.id || 0
+                                    )}"
+                                    data-sender-id="${senderId}"
+                                >
+
+                                    <div class="message-text">
+                                        ${escapeHtml(
+                                            messageText
+                                        )}
+                                    </div>
+
+                                    <div class="message-time">
+                                        ${formatMessageTime(
+                                            message.created_at
+                                        )}
+                                    </div>
+
+                                </div>
+                            `;
+                        }
+                    )
+                    .join("");
+
+
+            /*
+                Прокручиваем вниз только после
+                полноценного рендера.
+            */
             container.scrollTop =
                 container.scrollHeight;
         }
 
+
+        function formatMessageTime(
+            timestamp
+        ) {
+
+            const value =
+                Number(timestamp);
+
+
+            if (!value) {
+                return "";
+            }
+
+
+            const date =
+                new Date(
+                    value * 1000
+                );
+
+
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
+                return "";
+            }
+
+
+            return date.toLocaleTimeString(
+                "ru-RU",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }
+            );
+        }
+
+
+        function formatTime(
+            timestamp
+        ) {
+
+            const value =
+                Number(timestamp);
+
+
+            if (!value) {
+                return "";
+            }
+
+
+            const date =
+                new Date(
+                    value * 1000
+                );
+
+
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
+                return "";
+            }
+
+
+            const now =
+                new Date();
+
+
+            const sameDay =
+                date.getFullYear() ===
+                    now.getFullYear()
+                &&
+                date.getMonth() ===
+                    now.getMonth()
+                &&
+                date.getDate() ===
+                    now.getDate();
+
+
+            if (sameDay) {
+
+                return date.toLocaleTimeString(
+                    "ru-RU",
+                    {
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    }
+                );
+            }
+
+
+            return date.toLocaleDateString(
+                "ru-RU",
+                {
+                    day: "2-digit",
+                    month: "2-digit"
+                }
+            );
+        }
+
+
+        /* =====================================================
+           MESSAGE POLLING
+        ===================================================== */
 
         function startMessagePolling() {
 
@@ -2623,12 +3759,20 @@
                 );
             }
 
+
             messageTimer =
                 setInterval(
-                    () => {
+                    async () => {
 
-                        if (activeChat) {
-                            loadMessages();
+                        if (
+                            activeChat &&
+                            loadingMessagesForChat === null
+                        ) {
+
+                            await loadMessages(
+                                activeChat.id
+                            );
+
                         }
 
                     },
@@ -2637,35 +3781,50 @@
         }
 
 
-        // ======================================================
-        // SEND MESSAGE
-        // ======================================================
+        /* =====================================================
+           SEND MESSAGE
+        ===================================================== */
 
         document
-            .getElementById("messageForm")
+            .getElementById(
+                "messageForm"
+            )
             .addEventListener(
                 "submit",
                 async event => {
 
                     event.preventDefault();
 
+
                     if (!activeChat) {
                         return;
                     }
+
 
                     const input =
                         document.getElementById(
                             "messageInput"
                         );
 
+
                     const text =
                         input.value.trim();
+
 
                     if (!text) {
                         return;
                     }
 
-                    input.disabled = true;
+
+                    const chatId =
+                        Number(
+                            activeChat.id
+                        );
+
+
+                    input.disabled =
+                        true;
+
 
                     try {
 
@@ -2673,17 +3832,40 @@
                             "/api/messages",
                             {
                                 method: "POST",
-                                body: JSON.stringify({
-                                    chat_id:
-                                        activeChat.id,
-                                    text
-                                })
+
+                                body:
+                                    JSON.stringify({
+                                        chat_id:
+                                            chatId,
+
+                                        text
+                                    })
                             }
                         );
 
-                        input.value = "";
 
-                        await loadMessages();
+                        input.value =
+                            "";
+
+
+                        /*
+                            Загружаем только тот чат,
+                            который всё ещё открыт.
+                        */
+                        if (
+                            activeChat &&
+                            Number(
+                                activeChat.id
+                            ) === chatId
+                        ) {
+
+                            await loadMessages(
+                                chatId
+                            );
+
+                        }
+
+
                         await loadChats();
 
                     } catch (error) {
@@ -2695,15 +3877,21 @@
 
                     } finally {
 
-                        input.disabled = false;
+                        input.disabled =
+                            false;
+
                         input.focus();
+
                     }
+
                 }
             );
 
 
         document
-            .getElementById("messageInput")
+            .getElementById(
+                "messageInput"
+            )
             .addEventListener(
                 "keydown",
                 event => {
@@ -2721,23 +3909,32 @@
                             )
                             .requestSubmit();
                     }
+
                 }
             );
 
 
-        // ======================================================
-        // FRIENDS
-        // ======================================================
+        /* =====================================================
+           FRIENDS
+        ===================================================== */
 
         async function loadFriends() {
 
             try {
 
                 const data =
-                    await api("/api/friends");
+                    await api(
+                        "/api/friends"
+                    );
+
 
                 friends =
-                    data.friends || [];
+                    Array.isArray(
+                        data?.friends
+                    )
+                        ? data.friends
+                        : [];
+
 
                 renderFriends();
 
@@ -2747,9 +3944,12 @@
                     "friendsList"
                 ).innerHTML = `
                     <div class="empty-text">
-                        ${escapeHtml(error.message)}
+                        ${escapeHtml(
+                            error.message
+                        )}
                     </div>
                 `;
+
             }
         }
 
@@ -2760,6 +3960,7 @@
                 document.getElementById(
                     "friendsList"
                 );
+
 
             if (!friends.length) {
 
@@ -2772,55 +3973,82 @@
                 return;
             }
 
+
             container.innerHTML =
-                friends.map(friend => {
+                friends
+                    .map(
+                        friend => {
 
-                    const displayName =
-                        friend.display_name ||
-                        friend.username ||
-                        "Пользователь";
+                            const name =
+                                getDisplayName(
+                                    friend
+                                );
 
-                    const avatar =
-                        friend.avatar ||
-                        displayName
-                            .charAt(0)
-                            .toUpperCase();
 
-                    return `
-                        <div class="friend-row">
+                            return `
+                                <div class="friend-row">
 
-                            <div class="avatar">
-                                ${escapeHtml(avatar)}
-                            </div>
+                                    <div class="avatar">
 
-                            <div class="friend-main">
+                                        ${
+                                            friend.avatar
+                                                ? `
+                                                    <img
+                                                        src="${escapeAttribute(
+                                                            friend.avatar
+                                                        )}"
+                                                        alt=""
+                                                    >
+                                                `
+                                                : escapeHtml(
+                                                    getAvatarLetter(
+                                                        friend
+                                                    )
+                                                )
+                                        }
 
-                                <div class="friend-name">
-                                    ${escapeHtml(displayName)}
+                                    </div>
+
+
+                                    <div class="friend-main">
+
+                                        <div class="friend-name">
+                                            ${escapeHtml(
+                                                name
+                                            )}
+                                        </div>
+
+                                        <div class="friend-code">
+                                            ${escapeHtml(
+                                                friend.friend_code ||
+                                                ""
+                                            )}
+                                        </div>
+
+                                    </div>
+
+
+                                    <button
+                                        class="glass-btn green-btn"
+                                        type="button"
+                                        onclick="startChatWithUser(${Number(
+                                            friend.id
+                                        )})"
+                                    >
+                                        Написать
+                                    </button>
+
                                 </div>
-
-                                <div class="friend-code">
-                                    ${escapeHtml(friend.friend_code)}
-                                </div>
-
-                            </div>
-
-                            <button
-                                class="glass-btn green-btn"
-                                type="button"
-                                onclick="startChatWithUser(${friend.id})"
-                            >
-                                Написать
-                            </button>
-
-                        </div>
-                    `;
-
-                }).join("");
+                            `;
+                        }
+                    )
+                    .join("");
         }
 
 
-        async function startChatWithUser(userId) {
+        async function startChatWithUser(
+            userId
+        ) {
 
             try {
 
@@ -2829,46 +4057,66 @@
                         "/api/chats/open",
                         {
                             method: "POST",
-                            body: JSON.stringify({
-                                user_id: userId
-                            })
+
+                            body:
+                                JSON.stringify({
+                                    user_id:
+                                        Number(
+                                            userId
+                                        )
+                                })
                         }
                     );
 
+
                 await loadChats();
+
 
                 const chat =
                     chats.find(
-                        c =>
-                            Number(c.user_id) ===
+                        item =>
+                            Number(
+                                item.user_id ??
+                                item.peer_id ??
+                                item.other_user_id
+                            ) ===
                             Number(userId)
                     );
 
-                if (chat) {
 
-                    await openExistingChat(
-                        chat.chat_id
+                let chatId =
+                    Number(
+                        chat?.chat_id ??
+                        chat?.id ??
+                        data?.chat?.id
                     );
 
-                } else if (data.chat) {
 
-                    activeChat = {
-                        id: data.chat.id,
-                        userId,
-                        username: "Пользователь",
-                        displayName: "Пользователь",
-                        avatar: "?",
-                        status: "offline"
-                    };
+                if (
+                    !Number.isFinite(
+                        chatId
+                    )
+                ) {
 
-                    await loadChats();
+                    showToast(
+                        "Не удалось открыть чат.",
+                        "error"
+                    );
+
+                    return;
                 }
+
+
+                await openExistingChat(
+                    chatId
+                );
+
 
                 document
                     .querySelector(
                         '[data-view="chats"]'
                     )
-                    .click();
+                    ?.click();
 
             } catch (error) {
 
@@ -2876,13 +4124,150 @@
                     error.message,
                     "error"
                 );
+
             }
+
         }
 
 
-        // ======================================================
-        // FRIEND REQUESTS
-        // ======================================================
+        /* =====================================================
+           ADD FRIEND
+        ===================================================== */
+
+        document
+            .getElementById(
+                "addFriendBtn"
+            )
+            .addEventListener(
+                "click",
+                addFriend
+            );
+
+
+        document
+            .getElementById(
+                "friendCodeInput"
+            )
+            .addEventListener(
+                "keydown",
+                event => {
+
+                    if (
+                        event.key === "Enter"
+                    ) {
+
+                        event.preventDefault();
+
+                        addFriend();
+                    }
+
+                }
+            );
+
+
+        async function addFriend() {
+
+            const input =
+                document.getElementById(
+                    "friendCodeInput"
+                );
+
+
+            const code =
+                input.value
+                    .trim()
+                    .toUpperCase();
+
+
+            if (
+                !/^[A-Z0-9]{6}$/.test(
+                    code
+                )
+            ) {
+
+                showToast(
+                    "Код должен содержать 6 символов.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            try {
+
+                const userData =
+                    await api(
+                        "/api/user/code?code=" +
+                        encodeURIComponent(
+                            code
+                        )
+                    );
+
+
+                const user =
+                    userData.user;
+
+
+                if (
+                    Number(
+                        user.id
+                    ) ===
+                    Number(
+                        currentUser.id
+                    )
+                ) {
+
+                    showToast(
+                        "Нельзя добавить самого себя.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                await api(
+                    "/api/friends/request",
+                    {
+                        method: "POST",
+
+                        body:
+                            JSON.stringify({
+                                friend_code:
+                                    code
+                            })
+                    }
+                );
+
+
+                input.value =
+                    "";
+
+
+                showToast(
+                    "Заявка отправлена " +
+                    getDisplayName(user) +
+                    ".",
+                    "success"
+                );
+
+
+            } catch (error) {
+
+                showToast(
+                    error.message,
+                    "error"
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           FRIEND REQUESTS
+        ===================================================== */
 
         async function loadRequests() {
 
@@ -2893,8 +4278,14 @@
                         "/api/friends/requests"
                     );
 
+
                 requests =
-                    data.requests || [];
+                    Array.isArray(
+                        data?.requests
+                    )
+                        ? data.requests
+                        : [];
+
 
                 renderRequests();
 
@@ -2904,10 +4295,14 @@
                     "requestsList"
                 ).innerHTML = `
                     <div class="empty-text">
-                        ${escapeHtml(error.message)}
+                        ${escapeHtml(
+                            error.message
+                        )}
                     </div>
                 `;
+
             }
+
         }
 
 
@@ -2917,6 +4312,7 @@
                 document.getElementById(
                     "requestsList"
                 );
+
 
             if (!requests.length) {
 
@@ -2929,67 +4325,97 @@
                 return;
             }
 
+
             container.innerHTML =
-                requests.map(request => {
+                requests
+                    .map(
+                        request => {
 
-                    const displayName =
-                        request.display_name ||
-                        request.username ||
-                        "Пользователь";
+                            const name =
+                                getDisplayName(
+                                    request
+                                );
 
-                    const avatar =
-                        request.avatar ||
-                        displayName
-                            .charAt(0)
-                            .toUpperCase();
 
-                    return `
-                        <div class="friend-row">
+                            return `
+                                <div class="friend-row">
 
-                            <div class="avatar">
-                                ${escapeHtml(avatar)}
-                            </div>
+                                    <div class="avatar">
 
-                            <div class="friend-main">
+                                        ${
+                                            request.avatar
+                                                ? `
+                                                    <img
+                                                        src="${escapeAttribute(
+                                                            request.avatar
+                                                        )}"
+                                                        alt=""
+                                                    >
+                                                `
+                                                : escapeHtml(
+                                                    getAvatarLetter(
+                                                        request
+                                                    )
+                                                )
+                                        }
 
-                                <div class="friend-name">
-                                    ${escapeHtml(displayName)}
+                                    </div>
+
+
+                                    <div class="friend-main">
+
+                                        <div class="friend-name">
+                                            ${escapeHtml(
+                                                name
+                                            )}
+                                        </div>
+
+                                        <div class="friend-code">
+                                            ${escapeHtml(
+                                                request.friend_code ||
+                                                ""
+                                            )}
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="request-actions">
+
+                                        <button
+                                            class="glass-btn green-btn"
+                                            type="button"
+                                            onclick="acceptRequest(${Number(
+                                                request.id
+                                            )})"
+                                        >
+                                            Принять
+                                        </button>
+
+                                        <button
+                                            class="glass-btn danger-btn"
+                                            type="button"
+                                            onclick="rejectRequest(${Number(
+                                                request.id
+                                            )})"
+                                        >
+                                            Отклонить
+                                        </button>
+
+                                    </div>
+
                                 </div>
+                            `;
+                        }
+                    )
+                    .join("");
 
-                                <div class="friend-code">
-                                    ${escapeHtml(request.friend_code)}
-                                </div>
-
-                            </div>
-
-                            <div class="request-actions">
-
-                                <button
-                                    class="glass-btn green-btn"
-                                    type="button"
-                                    onclick="acceptRequest(${request.id})"
-                                >
-                                    ✓
-                                </button>
-
-                                <button
-                                    class="glass-btn danger-btn"
-                                    type="button"
-                                    onclick="rejectRequest(${request.id})"
-                                >
-                                    ×
-                                </button>
-
-                            </div>
-
-                        </div>
-                    `;
-
-                }).join("");
         }
 
 
-        async function acceptRequest(requestId) {
+        async function acceptRequest(
+            requestId
+        ) {
 
             try {
 
@@ -2997,20 +4423,29 @@
                     "/api/friends/request/accept",
                     {
                         method: "POST",
-                        body: JSON.stringify({
-                            request_id: requestId
-                        })
+
+                        body:
+                            JSON.stringify({
+                                request_id:
+                                    Number(
+                                        requestId
+                                    )
+                            })
                     }
                 );
+
 
                 showToast(
                     "Заявка принята.",
                     "success"
                 );
 
-                await loadRequests();
-                await loadFriends();
-                await loadChats();
+
+                await Promise.all([
+                    loadFriends(),
+                    loadRequests(),
+                    loadChats()
+                ]);
 
             } catch (error) {
 
@@ -3018,11 +4453,15 @@
                     error.message,
                     "error"
                 );
+
             }
+
         }
 
 
-        async function rejectRequest(requestId) {
+        async function rejectRequest(
+            requestId
+        ) {
 
             try {
 
@@ -3030,16 +4469,23 @@
                     "/api/friends/request/reject",
                     {
                         method: "POST",
-                        body: JSON.stringify({
-                            request_id: requestId
-                        })
+
+                        body:
+                            JSON.stringify({
+                                request_id:
+                                    Number(
+                                        requestId
+                                    )
+                            })
                     }
                 );
+
 
                 showToast(
                     "Заявка отклонена.",
                     "success"
                 );
+
 
                 await loadRequests();
 
@@ -3049,293 +4495,20 @@
                     error.message,
                     "error"
                 );
+
             }
+
         }
 
 
-        // ======================================================
-        // ADD FRIEND
-        // ======================================================
+        /* =====================================================
+           PROFILE
+        ===================================================== */
 
         document
-            .getElementById("addFriendBtn")
-            .addEventListener(
-                "click",
-                addFriend
-            );
-
-
-        document
-            .getElementById("friendCodeInput")
-            .addEventListener(
-                "keydown",
-                event => {
-
-                    if (event.key === "Enter") {
-
-                        event.preventDefault();
-
-                        addFriend();
-                    }
-                }
-            );
-
-
-        async function addFriend() {
-
-            const input =
-                document.getElementById(
-                    "friendCodeInput"
-                );
-
-            const code =
-                input.value
-                    .trim()
-                    .toUpperCase();
-
-            if (!/^[A-Z0-9]{6}$/.test(code)) {
-
-                showToast(
-                    "Код должен содержать 6 символов.",
-                    "error"
-                );
-
-                return;
-            }
-
-            try {
-
-                const userData =
-                    await api(
-                        "/api/user/code?code=" +
-                        encodeURIComponent(code)
-                    );
-
-                const user =
-                    userData.user;
-
-                if (
-                    Number(user.id) ===
-                    Number(currentUser.id)
-                ) {
-
-                    showToast(
-                        "Нельзя добавить самого себя.",
-                        "error"
-                    );
-
-                    return;
-                }
-
-                await api(
-                    "/api/friends/request",
-                    {
-                        method: "POST",
-                        body: JSON.stringify({
-                            friend_code: code
-                        })
-                    }
-                );
-
-                input.value = "";
-
-                showToast(
-                    "Заявка отправлена " +
-                    getUserDisplayName(user) +
-                    ".",
-                    "success"
-                );
-
-            } catch (error) {
-
-                showToast(
-                    error.message,
-                    "error"
-                );
-            }
-        }
-
-
-        // ======================================================
-        // PROFILE EDIT
-        // ======================================================
-
-        profileForm.addEventListener(
-            "submit",
-            async event => {
-
-                event.preventDefault();
-
-                if (!currentUser) {
-                    return;
-                }
-
-                const displayName =
-                    profileDisplayName.value.trim();
-
-                const avatar =
-                    profileAvatarInput.value.trim();
-
-                const statusMode =
-                    profileStatusMode.value;
-
-                if (!displayName) {
-
-                    showToast(
-                        "Введите имя профиля.",
-                        "error"
-                    );
-
-                    return;
-                }
-
-                if (displayName.length > 32) {
-
-                    showToast(
-                        "Имя профиля слишком длинное.",
-                        "error"
-                    );
-
-                    return;
-                }
-
-                const allowedStatuses = [
-                    "online",
-                    "away",
-                    "dnd",
-                    "invisible"
-                ];
-
-                if (
-                    !allowedStatuses.includes(
-                        statusMode
-                    )
-                ) {
-
-                    showToast(
-                        "Недопустимый статус.",
-                        "error"
-                    );
-
-                    return;
-                }
-
-                profileSaveBtn.disabled = true;
-
-                profileSaveBtn.textContent =
-                    "Сохранение...";
-
-                try {
-
-                    const data =
-                        await api(
-                            "/api/profile",
-                            {
-                                method: "POST",
-                                body: JSON.stringify({
-                                    display_name:
-                                        displayName,
-                                    avatar,
-                                    status_mode:
-                                        statusMode
-                                })
-                            }
-                        );
-
-                    currentUser =
-                        data.user;
-
-                    updateUserUI();
-
-                    await loadFriends();
-                    await loadChats();
-                    await loadRequests();
-
-                    if (activeChat) {
-
-                        const updatedChat =
-                            chats.find(
-                                chat =>
-                                    Number(chat.user_id) ===
-                                    Number(activeChat.userId)
-                            );
-
-                        if (updatedChat) {
-
-                            const updatedName =
-                                updatedChat.display_name ||
-                                updatedChat.username ||
-                                "Пользователь";
-
-                            const updatedAvatar =
-                                updatedChat.avatar ||
-                                updatedName
-                                    .charAt(0)
-                                    .toUpperCase();
-
-                            activeChat.username =
-                                updatedChat.username;
-
-                            activeChat.displayName =
-                                updatedName;
-
-                            activeChat.avatar =
-                                updatedAvatar;
-
-                            activeChat.status =
-                                updatedChat.status;
-
-                            activeChat.status_mode =
-                                updatedChat.status_mode;
-
-                            document.getElementById(
-                                "chatName"
-                            ).textContent =
-                                updatedName;
-
-                            document.getElementById(
-                                "chatAvatar"
-                            ).textContent =
-                                updatedAvatar;
-
-                            document.getElementById(
-                                "chatStatus"
-                            ).textContent =
-                                getStatusText(
-                                    updatedChat
-                                );
-                        }
-                    }
-
-                    showToast(
-                        "Профиль сохранён.",
-                        "success"
-                    );
-
-                } catch (error) {
-
-                    showToast(
-                        error.message,
-                        "error"
-                    );
-
-                } finally {
-
-                    profileSaveBtn.disabled = false;
-
-                    profileSaveBtn.textContent =
-                        "Сохранить изменения";
-                }
-            }
-        );
-
-
-        // ======================================================
-        // COPY CODE
-        // ======================================================
-
-        document
-            .getElementById("copyCodeBtn")
+            .getElementById(
+                "copyCodeBtn"
+            )
             .addEventListener(
                 "click",
                 async () => {
@@ -3344,11 +4517,13 @@
                         return;
                     }
 
+
                     try {
 
                         await navigator.clipboard.writeText(
                             currentUser.friend_code
                         );
+
 
                         showToast(
                             "Код скопирован.",
@@ -3361,17 +4536,147 @@
                             "Не удалось скопировать код.",
                             "error"
                         );
+
                     }
+
                 }
             );
 
 
-        // ======================================================
-        // LOGOUT
-        // ======================================================
+        document
+            .getElementById(
+                "saveProfileBtn"
+            )
+            .addEventListener(
+                "click",
+                saveProfile
+            );
+
+
+        async function saveProfile() {
+
+            if (!currentUser) {
+                return;
+            }
+
+
+            const displayName =
+                document.getElementById(
+                    "profileDisplayName"
+                ).value.trim();
+
+
+            const avatar =
+                document.getElementById(
+                    "profileAvatarInput"
+                ).value.trim();
+
+
+            const statusMode =
+                document.getElementById(
+                    "profileStatusMode"
+                ).value;
+
+
+            if (!displayName) {
+
+                showToast(
+                    "Введите имя профиля.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            const button =
+                document.getElementById(
+                    "saveProfileBtn"
+                );
+
+
+            button.disabled =
+                true;
+
+
+            const oldText =
+                button.textContent;
+
+
+            button.innerHTML =
+                '<span class="loading"></span>';
+
+
+            try {
+
+                const data =
+                    await api(
+                        "/api/profile",
+                        {
+                            method: "POST",
+
+                            body:
+                                JSON.stringify({
+                                    display_name:
+                                        displayName,
+
+                                    avatar,
+
+                                    status_mode:
+                                        statusMode
+                                })
+                        }
+                    );
+
+
+                currentUser =
+                    data.user;
+
+
+                updateUserUI();
+
+
+                showToast(
+                    "Профиль сохранён.",
+                    "success"
+                );
+
+
+                await Promise.allSettled([
+                    loadChats(),
+                    loadFriends(),
+                    loadRequests()
+                ]);
+
+
+            } catch (error) {
+
+                showToast(
+                    error.message,
+                    "error"
+                );
+
+            } finally {
+
+                button.disabled =
+                    false;
+
+                button.textContent =
+                    oldText;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           LOGOUT
+        ===================================================== */
 
         document
-            .getElementById("logoutBtn")
+            .getElementById(
+                "logoutBtn"
+            )
             .addEventListener(
                 "click",
                 logout
@@ -3380,12 +4685,25 @@
 
         function logout() {
 
+            /*
+                Только эта функция удаляет токен.
+
+                Поэтому обновление страницы,
+                ошибка сети или временная ошибка Worker
+                сами по себе аккаунт не разлогинят.
+            */
             localStorage.removeItem(
                 TOKEN_KEY
             );
 
-            currentUser = null;
-            activeChat = null;
+
+            currentUser =
+                null;
+
+
+            activeChat =
+                null;
+
 
             if (messageTimer) {
 
@@ -3393,32 +4711,140 @@
                     messageTimer
                 );
 
-                messageTimer = null;
+                messageTimer =
+                    null;
             }
+
 
             app.classList.remove(
                 "active"
             );
 
+
             authScreen.style.display =
                 "flex";
 
+
             authForm.reset();
 
-            isRegisterMode = false;
+
+            isRegisterMode =
+                false;
+
 
             updateAuthMode();
+
 
             showToast(
                 "Ты вышел из аккаунта.",
                 "success"
             );
+
         }
 
 
-        // ======================================================
-        // AUTO LOGIN
-        // ======================================================
+        /* =====================================================
+           SESSION HEARTBEAT
+        ===================================================== */
+
+        let heartbeatTimer =
+            null;
+
+
+        function startSessionHeartbeat() {
+
+            if (heartbeatTimer) {
+
+                clearInterval(
+                    heartbeatTimer
+                );
+
+            }
+
+
+            heartbeatTimer =
+                setInterval(
+                    async () => {
+
+                        const token =
+                            localStorage.getItem(
+                                TOKEN_KEY
+                            );
+
+
+                        if (!token) {
+                            return;
+                        }
+
+
+                        try {
+
+                            const data =
+                                await api(
+                                    "/api/me"
+                                );
+
+
+                            if (data?.user) {
+
+                                currentUser =
+                                    data.user;
+
+                                updateUserUI();
+
+                            }
+
+                        } catch (error) {
+
+                            /*
+                                ВАЖНО:
+
+                                НЕ удаляем токен при обычной
+                                ошибке сети / Worker.
+
+                                Только реальный 401 означает,
+                                что сессия больше недействительна.
+                            */
+
+                            if (
+                                Number(
+                                    error.status
+                                ) === 401 ||
+                                error.code ===
+                                    "AUTH_ERROR"
+                            ) {
+
+                                localStorage.removeItem(
+                                    TOKEN_KEY
+                                );
+
+                                currentUser =
+                                    null;
+
+                                app.classList.remove(
+                                    "active"
+                                );
+
+                                authScreen.style.display =
+                                    "flex";
+
+                                showAuthError(
+                                    "Сессия закончилась. Войди снова."
+                                );
+
+                            }
+
+                        }
+
+                    },
+                    60000
+                );
+        }
+
+
+        /* =====================================================
+           AUTO LOGIN
+        ===================================================== */
 
         async function checkSession() {
 
@@ -3427,50 +4853,150 @@
                     TOKEN_KEY
                 );
 
+
             if (!token) {
                 return;
             }
 
+
             try {
 
                 const data =
-                    await api("/api/me");
+                    await api(
+                        "/api/me"
+                    );
+
+
+                if (!data?.user) {
+
+                    throw new Error(
+                        "Не удалось получить пользователя."
+                    );
+                }
+
 
                 currentUser =
                     data.user;
 
+
                 showApp();
+
 
             } catch (error) {
 
                 /*
-                 * Важно:
-                 * при обычной ошибке сети токен не удаляем.
-                 * Поэтому временное отключение Worker
-                 * не выкинет пользователя из аккаунта.
-                 */
+                    НЕ удаляем токен при сетевой ошибке.
+
+                    Например, если Worker временно
+                    недоступен, после обновления страницы
+                    пользователь не должен автоматически
+                    вылететь из аккаунта.
+                */
 
                 if (
-                    error.message &&
-                    (
-                        error.message.includes("401") ||
-                        error.message.toLowerCase().includes("unauthorized") ||
-                        error.message.toLowerCase().includes("invalid token") ||
-                        error.message.toLowerCase().includes("invalid session")
-                    )
+                    Number(
+                        error.status
+                    ) === 401 ||
+                    error.code ===
+                        "AUTH_ERROR"
                 ) {
 
                     localStorage.removeItem(
                         TOKEN_KEY
                     );
+
+                    showAuthError(
+                        "Сессия закончилась. Войди снова."
+                    );
+
+                } else {
+
+                    /*
+                        Используем сохранённые данные,
+                        если они были сохранены ранее.
+                    */
+
+                    const cached =
+                        localStorage.getItem(
+                            "messenger_cached_user"
+                        );
+
+
+                    if (cached) {
+
+                        try {
+
+                            currentUser =
+                                JSON.parse(
+                                    cached
+                                );
+
+                            showApp();
+
+                            showToast(
+                                "Сервер временно недоступен. Работаем с сохранённой сессией.",
+                                "error"
+                            );
+
+                        } catch {
+
+                            authScreen.style.display =
+                                "flex";
+
+                        }
+
+                    }
+
                 }
+
             }
+
         }
 
 
-        // ======================================================
-        // TOAST
-        // ======================================================
+        /* =====================================================
+           CACHE USER
+        ===================================================== */
+
+        /*
+            Сохраняем пользователя отдельно от токена.
+
+            Это НЕ заменяет серверную авторизацию.
+            Это только позволяет красиво восстановить
+            интерфейс при временной ошибке сети.
+        */
+
+        const originalUpdateUserUI =
+            updateUserUI;
+
+
+        updateUserUI =
+            function () {
+
+                originalUpdateUserUI();
+
+
+                if (currentUser) {
+
+                    try {
+
+                        localStorage.setItem(
+                            "messenger_cached_user",
+                            JSON.stringify(
+                                currentUser
+                            )
+                        );
+
+                    } catch {}
+
+                }
+
+            };
+
+
+        /* =====================================================
+           TOAST
+        ===================================================== */
 
         function showToast(
             message,
@@ -3482,20 +5008,25 @@
                     "toastContainer"
                 );
 
+
             const toast =
                 document.createElement(
                     "div"
                 );
 
+
             toast.className =
                 "toast " + type;
+
 
             toast.textContent =
                 message;
 
+
             container.appendChild(
                 toast
             );
+
 
             setTimeout(
                 () => {
@@ -3506,35 +5037,72 @@
                     toast.style.transform =
                         "translateY(7px)";
 
+
                     setTimeout(
-                        () => toast.remove(),
+                        () =>
+                            toast.remove(),
                         200
                     );
 
                 },
                 3000
             );
+
         }
 
 
-        // ======================================================
-        // ESCAPE HTML
-        // ======================================================
+        /* =====================================================
+           ESCAPE
+        ===================================================== */
 
-        function escapeHtml(value) {
+        function escapeHtml(
+            value
+        ) {
 
-            return String(value ?? "")
-                .replaceAll("&", "&amp;")
-                .replaceAll("<", "&lt;")
-                .replaceAll(">", "&gt;")
-                .replaceAll('"', "&quot;")
-                .replaceAll("'", "&#039;");
+            return String(
+                value ?? ""
+            )
+                .replaceAll(
+                    "&",
+                    "&amp;"
+                )
+                .replaceAll(
+                    "<",
+                    "&lt;"
+                )
+                .replaceAll(
+                    ">",
+                    "&gt;"
+                )
+                .replaceAll(
+                    '"',
+                    "&quot;"
+                )
+                .replaceAll(
+                    "'",
+                    "&#039;"
+                );
+
         }
 
 
-        // ======================================================
-        // INIT
-        // ======================================================
+        function escapeAttribute(
+            value
+        ) {
+
+            return escapeHtml(
+                value
+            )
+                .replaceAll(
+                    "`",
+                    "&#096;"
+                );
+        }
+
+
+        /* =====================================================
+           INIT
+        ===================================================== */
 
         updateAuthMode();
 

@@ -1634,6 +1634,11 @@
         const TOKEN_KEY =
             "messenger_session_token";
 
+        const USER_CACHE_KEY =
+            "messenger_cached_user";
+
+        let heartbeatTimer = null;
+
 
         // ======================================================
         // STATE
@@ -1719,12 +1724,8 @@
 
             } catch (error) {
 
-                console.error("Messenger API connection error:", error);
-
-                const message = error?.message || "Неизвестная ошибка сети.";
-
                 throw new Error(
-                    `Не удалось подключиться к серверу: ${message}`
+                    "Не удалось подключиться к серверу."
                 );
             }
 
@@ -1742,7 +1743,10 @@
                     data?.error ||
                     `Ошибка сервера (${response.status})`;
 
-                throw new Error(message);
+                const error = new Error(message);
+                error.status = response.status;
+                error.data = data;
+                throw error;
             }
 
             return data;
@@ -1876,6 +1880,11 @@
                     currentUser =
                         data.user;
 
+                    localStorage.setItem(
+                        USER_CACHE_KEY,
+                        JSON.stringify(currentUser)
+                    );
+
                     showApp();
 
                     showToast(
@@ -1955,6 +1964,16 @@
                 "profileUsername"
             ).textContent =
                 currentUser.username;
+
+            const profileStatus =
+                document.querySelector(".profile-status");
+
+            if (profileStatus) {
+                profileStatus.textContent =
+                    currentUser.status === "online"
+                        ? "● онлайн"
+                        : "● офлайн";
+            }
 
             document.getElementById(
                 "profileCode"
@@ -2845,6 +2864,10 @@
                 TOKEN_KEY
             );
 
+            localStorage.removeItem(
+                USER_CACHE_KEY
+            );
+
             currentUser = null;
             activeChat = null;
 
@@ -2852,6 +2875,14 @@
                 clearInterval(
                     messageTimer
                 );
+                messageTimer = null;
+            }
+
+            if (heartbeatTimer) {
+                clearInterval(
+                    heartbeatTimer
+                );
+                heartbeatTimer = null;
             }
 
             app.classList.remove(
@@ -2889,6 +2920,20 @@
                 return;
             }
 
+            // Сначала восстанавливаем интерфейс из локального кеша.
+            // Поэтому обычное обновление страницы не выбрасывает аккаунт.
+            try {
+                const cached =
+                    localStorage.getItem(USER_CACHE_KEY);
+
+                if (cached) {
+                    currentUser = JSON.parse(cached);
+                    showApp();
+                }
+            } catch {
+                localStorage.removeItem(USER_CACHE_KEY);
+            }
+
             try {
 
                 const data =
@@ -2897,14 +2942,71 @@
                 currentUser =
                     data.user;
 
-                showApp();
-
-            } catch {
-
-                localStorage.removeItem(
-                    TOKEN_KEY
+                localStorage.setItem(
+                    USER_CACHE_KEY,
+                    JSON.stringify(currentUser)
                 );
+
+                if (!app.classList.contains("active")) {
+                    showApp();
+                } else {
+                    updateUserUI();
+                }
+
+                startHeartbeat();
+
+            } catch (error) {
+
+                // Только настоящий 401 означает, что сессия закончилась.
+                // Ошибка сети/Cloudflare не должна разлогинивать пользователя.
+                if (error.status === 401) {
+                    localStorage.removeItem(TOKEN_KEY);
+                    localStorage.removeItem(USER_CACHE_KEY);
+                    currentUser = null;
+                    app.classList.remove("active");
+                    authScreen.style.display = "flex";
+                    return;
+                }
+
+                if (currentUser) {
+                    startHeartbeat();
+                }
             }
+        }
+
+
+        function startHeartbeat() {
+
+            if (heartbeatTimer) {
+                clearInterval(heartbeatTimer);
+            }
+
+            heartbeatTimer = setInterval(async () => {
+
+                if (!localStorage.getItem(TOKEN_KEY)) {
+                    return;
+                }
+
+                try {
+                    const data = await api("/api/me");
+
+                    if (data.user) {
+                        currentUser = data.user;
+
+                        localStorage.setItem(
+                            USER_CACHE_KEY,
+                            JSON.stringify(currentUser)
+                        );
+
+                        updateUserUI();
+                    }
+                } catch (error) {
+                    if (error.status === 401) {
+                        logout();
+                    }
+                }
+
+            }, 60000);
         }
 
 

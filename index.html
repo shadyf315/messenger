@@ -821,6 +821,84 @@
             margin-top: 4px;
         }
 
+        .profile-edit {
+            margin-top: 24px;
+            padding-top: 22px;
+            border-top: 1px solid var(--border);
+        }
+
+        .profile-edit-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .status-select {
+            width: 100%;
+            height: 49px;
+            padding: 0 14px;
+            color: var(--text);
+            background: rgba(0,0,0,0.28);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            outline: none;
+        }
+
+        .status-select:focus {
+            border-color: var(--border-green);
+        }
+
+        .status-select option {
+            background: #161916;
+            color: white;
+        }
+
+        .avatar-picker {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .avatar-choice {
+            width: 42px;
+            height: 42px;
+            border-radius: 13px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.035);
+            color: white;
+            font-size: 20px;
+        }
+
+        .avatar-choice.active,
+        .avatar-choice:hover {
+            border-color: rgba(182,255,0,0.35);
+            background: rgba(182,255,0,0.09);
+            box-shadow: 0 0 18px rgba(182,255,0,0.07);
+        }
+
+        .profile-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .profile-save-status {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        @media (max-width: 650px) {
+            .profile-edit-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
         /* =========================
            TOAST
         ========================= */
@@ -1512,6 +1590,46 @@
 
                             </div>
 
+                            <div class="profile-edit">
+                                <div class="section-title">Редактирование профиля</div>
+
+                                <div class="profile-edit-grid">
+                                    <div class="field">
+                                        <label for="profileUsernameInput">Имя пользователя</label>
+                                        <input class="input" id="profileUsernameInput" type="text" maxlength="24" autocomplete="off" placeholder="Имя пользователя">
+                                    </div>
+
+                                    <div class="field">
+                                        <label for="profileStatusSelect">Статус</label>
+                                        <select class="status-select" id="profileStatusSelect">
+                                            <option value="online">🟢 Онлайн</option>
+                                            <option value="away">🟡 Отошёл</option>
+                                            <option value="dnd">🔴 Не беспокоить</option>
+                                            <option value="invisible">⚫ Невидимый</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="field" style="margin-top:4px;">
+                                    <label>Аватар</label>
+                                    <div class="avatar-picker" id="avatarPicker">
+                                        <button class="avatar-choice" type="button" data-avatar="M">M</button>
+                                        <button class="avatar-choice" type="button" data-avatar="😎">😎</button>
+                                        <button class="avatar-choice" type="button" data-avatar="👾">👾</button>
+                                        <button class="avatar-choice" type="button" data-avatar="🦊">🦊</button>
+                                        <button class="avatar-choice" type="button" data-avatar="🐸">🐸</button>
+                                        <button class="avatar-choice" type="button" data-avatar="💀">💀</button>
+                                        <button class="avatar-choice" type="button" data-avatar="⚡">⚡</button>
+                                        <button class="avatar-choice" type="button" data-avatar="🌙">🌙</button>
+                                    </div>
+                                </div>
+
+                                <div class="profile-actions">
+                                    <button class="glass-btn green-btn" id="saveProfileBtn" type="button">Сохранить изменения</button>
+                                    <span class="profile-save-status" id="profileSaveStatus"></span>
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>
@@ -1925,6 +2043,7 @@
             app.classList.add("active");
 
             updateUserUI();
+            syncProfileEditor();
 
             loadAll();
 
@@ -1938,6 +2057,7 @@
             }
 
             const letter =
+                currentUser.avatar ||
                 currentUser.username
                     .charAt(0)
                     .toUpperCase();
@@ -1988,6 +2108,95 @@
                 currentUser.friend_code;
         }
 
+
+        // ======================================================
+        // PROFILE EDIT
+        // ======================================================
+
+        let selectedAvatar = "M";
+
+        function syncProfileEditor() {
+            if (!currentUser) return;
+
+            document.getElementById("profileUsernameInput").value =
+                currentUser.username || "";
+
+            document.getElementById("profileStatusSelect").value =
+                currentUser.status || "online";
+
+            selectedAvatar =
+                currentUser.avatar ||
+                currentUser.username?.charAt(0).toUpperCase() ||
+                "M";
+
+            document.querySelectorAll(".avatar-choice").forEach(button => {
+                button.classList.toggle(
+                    "active",
+                    button.dataset.avatar === selectedAvatar
+                );
+            });
+        }
+
+        document.querySelectorAll(".avatar-choice").forEach(button => {
+            button.addEventListener("click", () => {
+                selectedAvatar = button.dataset.avatar;
+
+                document.querySelectorAll(".avatar-choice").forEach(item => {
+                    item.classList.toggle("active", item === button);
+                });
+            });
+        });
+
+        document.getElementById("saveProfileBtn").addEventListener("click", async () => {
+            if (!currentUser) return;
+
+            const button = document.getElementById("saveProfileBtn");
+            const statusText = document.getElementById("profileSaveStatus");
+            const username = document.getElementById("profileUsernameInput").value.trim();
+            const status = document.getElementById("profileStatusSelect").value;
+
+            if (username.length < 3 || username.length > 24) {
+                showToast("Имя должно содержать от 3 до 24 символов.", "error");
+                return;
+            }
+
+            button.disabled = true;
+            button.textContent = "Сохранение...";
+            statusText.textContent = "";
+
+            try {
+                const data = await api("/api/profile", {
+                    method: "PATCH",
+                    body: JSON.stringify({
+                        username,
+                        status,
+                        avatar: selectedAvatar
+                    })
+                });
+
+                currentUser = data.user;
+
+                localStorage.setItem(
+                    USER_CACHE_KEY,
+                    JSON.stringify(currentUser)
+                );
+
+                updateUserUI();
+                syncProfileEditor();
+                await loadChats();
+                await loadFriends();
+
+                statusText.textContent = "Сохранено";
+                showToast("Профиль обновлён.", "success");
+
+            } catch (error) {
+                showToast(error.message, "error");
+                statusText.textContent = "Не сохранено";
+            } finally {
+                button.disabled = false;
+                button.textContent = "Сохранить изменения";
+            }
+        });
 
         // ======================================================
         // LOAD ALL
@@ -2951,6 +3160,7 @@
                     showApp();
                 } else {
                     updateUserUI();
+                    syncProfileEditor();
                 }
 
                 startHeartbeat();
@@ -2999,6 +3209,7 @@
                         );
 
                         updateUserUI();
+                        syncProfileEditor();
                     }
                 } catch (error) {
                     if (error.status === 401) {
